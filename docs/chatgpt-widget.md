@@ -68,5 +68,5 @@ All of this was verified only against the documentation and a simulated host (a 
 - `notifyIntrinsicHeight`'s argument is not specified in the pages we read; the call is wrapped in try/catch and may be a no-op.
 - `ui.domain`: the docs say hosted components need a dedicated origin (default `https://web-sandbox.oaiusercontent.com`) and submission requires one. We do not set it; S16 decides the origin and sets `McpHandlerDeps.widgetDomain`. Whether an empty CSP and no domain are accepted in development mode is untested.
 - Whether `redirect_domains` is honoured when the same URL is also an `href`, and what the host shows on first open of an external link.
-- The report link is still the placeholder `${baseUrl}/r/${analysisId}` (F33), which `GET /r/:token` does not resolve; the button works, the destination does not until S14 wires the real link.
+- The report link is the real share link (`/r/:token`, F33) on the same origin as the server, which is the origin published in `redirect_domains`; if reports are ever served from another origin, add it there.
 - Fullscreen / picture-in-picture are not requested (`openai/ui.availableDisplayModes` is unset); the card is inline only.
