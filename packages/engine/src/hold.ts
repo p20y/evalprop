@@ -62,18 +62,24 @@ export function holdAnalysis(i: ResolvedInput): HoldAnalysis {
     });
   }
 
-  const horizonYears = [...new Set([5, 10, 20, i.holdYears].filter((h) => h <= i.holdYears))].sort((a, b) => a - b);
-  const horizons = horizonYears.map((h) => {
-    const flows = [-cashInvested, ...years.slice(0, h).map((r) => r.cashFlow)];
-    flows[h] += years[h - 1].netSaleProceeds;
+  const horizonYears =[...new Set([5, 10, 20, i.holdYears].filter((h) => h <= i.holdYears))].sort((a, b) => a - b);
+  const horizons = horizonYears.flatMap((h) => {
     const row = years[h - 1];
+    if (!row) return []; // unreachable: every horizon is <= holdYears, so its year row exists
+    // Cash flows for years 1..h, with the sale proceeds landing in year h.
+    const flows = [
+      -cashInvested,
+      ...years.slice(0, h).map((r, idx) => (idx === h - 1 ? r.cashFlow + r.netSaleProceeds : r.cashFlow)),
+    ];
     const irrValue = irr(flows);
-    return {
-      years: h,
-      totalProfit: row.totalProfit,
-      equityMultiple: cashInvested > 0 ? (row.cumulativeCashFlow + row.netSaleProceeds) / cashInvested : 0,
-      irrPct: irrValue === null ? null : irrValue * 100,
-    };
+    return [
+      {
+        years: h,
+        totalProfit: row.totalProfit,
+        equityMultiple: cashInvested > 0 ? (row.cumulativeCashFlow + row.netSaleProceeds) / cashInvested : 0,
+        irrPct: irrValue === null ? null : irrValue * 100,
+      },
+    ];
   });
 
   return { years, cashPaybackMonth, breakEvenMonth, horizons };

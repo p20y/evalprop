@@ -1,3 +1,4 @@
+import { normalizeInput } from "./defaults.ts";
 import { evaluate } from "./evaluate.ts";
 import type { PropertyInput } from "./types.ts";
 
@@ -8,7 +9,8 @@ const monthlyCashFlow = (input: PropertyInput) => evaluate(input).yearOne.monthl
  * (every rent-driven cost is a percentage), so two evaluations are enough.
  * Returns null if extra rent never improves cash flow (e.g. costs eat 100% of each dollar).
  */
-export function breakEvenRent(input: PropertyInput): number | null {
+export function breakEvenRent(rawInput: PropertyInput): number | null {
+  const input = normalizeInput(rawInput);
   const at = (rent: number) => monthlyCashFlow({ ...input, monthlyRent: rent });
   const f0 = at(0);
   const f1 = at(1000);
@@ -21,7 +23,8 @@ export function breakEvenRent(input: PropertyInput): number | null {
  * Highest purchase price that still reaches `targetPct` year-one cash-on-cash, by bisection.
  * Returns null if even a very low price cannot reach the target.
  */
-export function maxPriceForCashOnCash(input: PropertyInput, targetPct: number): number | null {
+export function maxPriceForCashOnCash(rawInput: PropertyInput, targetPct: number): number | null {
+  const input = normalizeInput(rawInput);
   const coc = (price: number) => evaluate({ ...input, purchasePrice: price }).yearOne.cashOnCashPct;
   let lo = 1_000;
   let hi = Math.max(input.purchasePrice * 3, 1_000_000);

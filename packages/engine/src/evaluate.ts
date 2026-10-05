@@ -7,7 +7,7 @@ const fmtPct = (n: number) => `${n.toFixed(1)}%`;
 
 /** Thresholds are deliberately simple and visible so the report can show why a verdict was reached. */
 export function evaluate(input: PropertyInput): Evaluation {
-  const { resolved, assumptions } = resolveInput(input);
+  const { resolved, assumptions, listPrice } = resolveInput(input);
   const y1 = yearOne(resolved);
   const hold = holdAnalysis(resolved);
 
@@ -41,5 +41,15 @@ export function evaluate(input: PropertyInput): Evaluation {
   const passed = checks.filter((c) => c.passed).length;
   const verdict: Verdict = passed === 4 ? "strong" : passed === 3 ? "good" : passed === 2 ? "marginal" : "weak";
 
-  return { verdict, checks, yearOne: y1, hold, assumptions };
+  const evaluation: Evaluation = { verdict, checks, yearOne: y1, hold, assumptions };
+  if (listPrice !== null) {
+    const discountAmount = listPrice - resolved.purchasePrice;
+    evaluation.listPriceComparison = {
+      listPrice,
+      purchasePrice: resolved.purchasePrice,
+      discountAmount,
+      discountPct: (discountAmount / listPrice) * 100,
+    };
+  }
+  return evaluation;
 }

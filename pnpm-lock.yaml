@@ -227,7 +227,11 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
-  packages/engine: {}
+  packages/engine:
+    devDependencies:
+      '@evalprop/shared':
+        specifier: workspace:*
+        version: link:../shared
 
   packages/report:
     dependencies:

@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { evaluate, InputError, irr, monthlyPayment, balanceAfter, sensitivity, breakEvenRent, maxPriceForCashOnCash } from "../src/calc/index.ts";
+import { evaluate, InputError, irr, monthlyPayment, balanceAfter, sensitivity, breakEvenRent, maxPriceForCashOnCash } from "./index.ts";
 
 const near = (actual: number, expected: number, tol = 0.01) =>
   assert.ok(Math.abs(actual - expected) <= tol, `expected ${actual} ≈ ${expected}`);
@@ -47,7 +47,7 @@ test("year-one metrics for the all-cash case", () => {
   near(y.capRatePct, 10.2);
   near(y.cashOnCashPct, 10.2);
   assert.equal(y.dscr, null);
-  near(y.grossRentMultiplier, 8.333, 0.001);
+  near(y.grossRentMultiplier!, 8.333, 0.001);
   near(y.rentToPricePct, 1);
   near(y.breakEvenOccupancyPct, 15);
   near(y.monthlyCashFlow, 1_700);
@@ -68,7 +68,7 @@ test("hold analysis: cash payback month for the all-cash case", () => {
   // 200,000 / 1,700 per month = 117.6 -> month 118
   assert.equal(hold.cashPaybackMonth, 118);
   assert.equal(hold.years.length, 30);
-  near(hold.years[0].cashFlow, 20_400);
+  near(hold.years[0]!.cashFlow, 20_400);
 });
 
 test("break-even counts sale proceeds: immediate with no selling costs, after recovering them otherwise", () => {
@@ -85,14 +85,14 @@ test("appreciation and amortization pull break-even earlier than cash payback", 
 
 test("rent growth raises later-year cash flow", () => {
   const { hold } = evaluate({ ...simple, rentGrowthPct: 3, expenseGrowthPct: 3 });
-  assert.ok(hold.years[9].cashFlow > hold.years[0].cashFlow);
+  assert.ok(hold.years[9]!.cashFlow > hold.years[0]!.cashFlow);
 });
 
 test("loan ends within the hold period: debt service drops to zero", () => {
   const { hold } = evaluate({ ...simple, downPaymentPct: 20, loanTermYears: 15 });
-  assert.ok(hold.years[14].debtService > 0);
-  assert.equal(hold.years[15].debtService, 0);
-  near(hold.years[14].loanBalance, 0, 0.01);
+  assert.ok(hold.years[14]!.debtService > 0);
+  assert.equal(hold.years[15]!.debtService, 0);
+  near(hold.years[14]!.loanBalance, 0, 0.01);
 });
 
 test("horizons include 5, 10, 20 and the full hold, with IRR", () => {
@@ -107,10 +107,10 @@ test("horizons include 5, 10, 20 and the full hold, with IRR", () => {
 test("defaults are flagged as assumed; provided values as provided", () => {
   const e = evaluate({ purchasePrice: 300_000, monthlyRent: 2_500, interestRatePct: 7 });
   const by = Object.fromEntries(e.assumptions.map((a) => [a.field, a]));
-  assert.equal(by.interestRatePct.source, "provided");
-  assert.equal(by.downPaymentPct.source, "assumed");
-  near(by.propertyTaxAnnual.value, 3_300);
-  near(by.insuranceAnnual.value, 1_500);
+  assert.equal(by.interestRatePct!.source, "provided");
+  assert.equal(by.downPaymentPct!.source, "assumed");
+  near(by.propertyTaxAnnual!.value, 3_300);
+  near(by.insuranceAnnual!.value, 1_500);
 });
 
 test("verdict reflects how many checks pass", () => {
@@ -163,7 +163,7 @@ test("sensitivity grid has the right shape and the base cell matches evaluate", 
   const base = { purchasePrice: 300_000, monthlyRent: 2_500, interestRatePct: 7 };
   const g = sensitivity(base, "interestRatePct", [6, 7, 8], "purchasePrice", [280_000, 300_000], (e) => e.yearOne.monthlyCashFlow);
   assert.equal(g.cells.length, 2);
-  assert.equal(g.cells[0].length, 3);
-  near(g.cells[1][1], evaluate(base).yearOne.monthlyCashFlow, 1e-9);
-  assert.ok(g.cells[0][0] > g.cells[0][2], "higher rates reduce cash flow");
+  assert.equal(g.cells[0]!.length, 3);
+  near(g.cells[1]![1]!, evaluate(base).yearOne.monthlyCashFlow, 1e-9);
+  assert.ok(g.cells[0]![0]! > g.cells[0]![2]!, "higher rates reduce cash flow");
 });
