@@ -3,11 +3,19 @@ import { holdAnalysis } from "./hold.ts";
 import { yearOne } from "./yearOne.ts";
 import type { Check, Evaluation, PropertyInput, Verdict } from "./types.ts";
 
-const fmtPct = (n: number) => `${n.toFixed(1)}%`;
+const fmtPct = (n: number) => {
+  const s = n.toFixed(1);
+  return `${s === "-0.0" ? "0.0" : s}%`;
+};
+/** Whole dollars with the sign in front: "$1,200", "-$68" (never "$-68", never "-$0"). */
+const fmtUsd = (n: number) => {
+  const rounded = Math.round(n);
+  return `${rounded < 0 ? "-" : ""}$${Math.abs(rounded).toLocaleString("en-US")}`;
+};
 
 /** Thresholds are deliberately simple and visible so the report can show why a verdict was reached. */
 export function evaluate(input: PropertyInput): Evaluation {
-  const { resolved, assumptions } = resolveInput(input);
+  const { resolved, assumptions, listPrice } = resolveInput(input);
   const y1 = yearOne(resolved);
   const hold = holdAnalysis(resolved);
 
@@ -15,7 +23,7 @@ export function evaluate(input: PropertyInput): Evaluation {
     {
       name: "Positive monthly cash flow",
       passed: y1.monthlyCashFlow > 0,
-      actual: `$${Math.round(y1.monthlyCashFlow).toLocaleString("en-US")}/mo`,
+      actual: `${fmtUsd(y1.monthlyCashFlow)}/mo`,
       threshold: "> $0",
     },
     {
@@ -41,5 +49,15 @@ export function evaluate(input: PropertyInput): Evaluation {
   const passed = checks.filter((c) => c.passed).length;
   const verdict: Verdict = passed === 4 ? "strong" : passed === 3 ? "good" : passed === 2 ? "marginal" : "weak";
 
-  return { verdict, checks, yearOne: y1, hold, assumptions };
+  const evaluation: Evaluation = { verdict, checks, yearOne: y1, hold, assumptions };
+  if (listPrice !== null) {
+    const discountAmount = listPrice - resolved.purchasePrice;
+    evaluation.listPriceComparison = {
+      listPrice,
+      purchasePrice: resolved.purchasePrice,
+      discountAmount,
+      discountPct: (discountAmount / listPrice) * 100,
+    };
+  }
+  return evaluation;
 }

@@ -60,7 +60,7 @@ export function yearOne(i: ResolvedInput): YearOneMetrics {
     capRatePct: (noi / i.purchasePrice) * 100,
     cashOnCashPct: cashInvested > 0 ? (annualCashFlow / cashInvested) * 100 : 0,
     dscr: annualDebtService > 0 ? noi / annualDebtService : null,
-    grossRentMultiplier: grossAnnualRent > 0 ? i.purchasePrice / grossAnnualRent : Infinity,
+    grossRentMultiplier: grossAnnualRent > 0 ? i.purchasePrice / grossAnnualRent : null,
     rentToPricePct: (i.monthlyRent / (i.purchasePrice + i.rehabCost)) * 100,
     breakEvenOccupancyPct,
     fiftyPercentRuleMonthlyCashFlow: i.monthlyRent * 0.5 - pmt,

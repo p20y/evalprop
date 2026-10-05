@@ -1,0 +1,1441 @@
+{
+ "engineVersion": "1.0.0",
+ "deals": [
+  {
+   "name": "defaults only",
+   "input": {
+    "purchasePrice": 300000,
+    "monthlyRent": 2500
+   },
+   "evaluation": {
+    "verdict": "weak",
+    "checks": [
+     {
+      "name": "Positive monthly cash flow",
+      "passed": false,
+      "actual": "-$68/mo",
+      "threshold": "> $0"
+     },
+     {
+      "name": "Cash-on-cash return",
+      "passed": false,
+      "actual": "-1.0%",
+      "threshold": ">= 8%"
+     },
+     {
+      "name": "Cap rate",
+      "passed": false,
+      "actual": "5.6%",
+      "threshold": ">= 6%"
+     },
+     {
+      "name": "Debt service coverage",
+      "passed": false,
+      "actual": "0.95",
+      "threshold": ">= 1.25"
+     }
+    ],
+    "yearOne": {
+     "grossAnnualRent": 30000,
+     "vacancyLoss": 2400,
+     "effectiveRent": 27600,
+     "operatingExpenses": {
+      "propertyTax": 3300,
+      "insurance": 1500,
+      "hoa": 0,
+      "maintenance": 2400,
+      "capex": 1500,
+      "management": 2208,
+      "total": 10908
+     },
+     "noi": 16692,
+     "loanAmount": 225000,
+     "monthlyPrincipalAndInterest": 1459.345717,
+     "annualDebtService": 17512.148607,
+     "annualCashFlow": -820.148607,
+     "monthlyCashFlow": -68.345717,
+     "cashInvested": 84000,
+     "capRatePct": 5.564,
+     "cashOnCashPct": -0.976367,
+     "dscr": 0.953167,
+     "grossRentMultiplier": 10,
+     "rentToPricePct": 0.833333,
+     "breakEvenOccupancyPct": 94.971553,
+     "fiftyPercentRuleMonthlyCashFlow": -209.345717
+    },
+    "hold": {
+     "years": [
+      {
+       "year": 1,
+       "grossRent": 30000,
+       "operatingExpenses": 10908,
+       "noi": 16692,
+       "debtService": 17512.148607,
+       "cashFlow": -820.148607,
+       "cumulativeCashFlow": -820.148607,
+       "propertyValue": 309000,
+       "loanBalance": 222602.066877,
+       "equity": 86397.933123,
+       "netSaleProceeds": 67857.933123,
+       "totalProfit": -16962.215485
+      },
+      {
+       "year": 2,
+       "grossRent": 30900,
+       "operatingExpenses": 11235.24,
+       "noi": 17192.76,
+       "debtService": 17512.148607,
+       "cashFlow": -319.388607,
+       "cumulativeCashFlow": -1139.537215,
+       "propertyValue": 318270,
+       "loanBalance": 220037.170619,
+       "equity": 98232.829381,
+       "netSaleProceeds": 79136.629381,
+       "totalProfit": -6002.907834
+      },
+      {
+       "year": 3,
+       "grossRent": 31827,
+       "operatingExpenses": 11572.2972,
+       "noi": 17708.5428,
+       "debtService": 17512.148607,
+       "cashFlow": 196.394193,
+       "cumulativeCashFlow": -943.143022,
+       "propertyValue": 327818.1,
+       "loanBalance": 217293.685927,
+       "equity": 110524.414073,
+       "netSaleProceeds": 90855.328073,
+       "totalProfit": 5912.185051
+      },
+      {
+       "year": 4,
+       "grossRent": 32781.81,
+       "operatingExpenses": 11919.466116,
+       "noi": 18239.799084,
+       "debtService": 17512.148607,
+       "cashFlow": 727.650477,
+       "cumulativeCashFlow": -215.492545,
+       "propertyValue": 337652.643,
+       "loanBalance": 214359.178057,
+       "equity": 123293.464943,
+       "netSaleProceeds": 103034.306363,
+       "totalProfit": 18818.813818
+      },
+      {
+       "year": 5,
+       "grossRent": 33765.2643,
+       "operatingExpenses": 12277.050099,
+       "noi": 18786.993057,
+       "debtService": 17512.148607,
+       "cashFlow": 1274.844449,
+       "cumulativeCashFlow": 1059.351904,
+       "propertyValue": 347782.22229,
+       "loanBalance": 211220.346459,
+       "equity": 136561.875831,
+       "netSaleProceeds": 115694.942494,
+       "totalProfit": 32754.294398
+      },
+      {
+       "year": 6,
+       "grossRent": 34778.222229,
+       "operatingExpenses": 12645.361602,
+       "noi": 19350.602848,
+       "debtService": 17512.148607,
+       "cashFlow": 1838.454241,
+       "cumulativeCashFlow": 2897.806145,
+       "propertyValue": 358215.688959,
+       "loanBalance": 207862.964493,
+       "equity": 150352.724465,
+       "netSaleProceeds": 128859.783128,
+       "totalProfit": 47757.589272
+      },
+      {
+       "year": 7,
+       "grossRent": 35821.568896,
+       "operatingExpenses": 13024.722451,
+       "noi": 19931.120934,
+       "debtService": 17512.148607,
+       "cashFlow": 2418.972326,
+       "cumulativeCashFlow": 5316.778471,
+       "propertyValue": 368962.159627,
+       "loanBalance": 204271.814949,
+       "equity": 164690.344678,
+       "netSaleProceeds": 142552.6151,
+       "totalProfit": 63869.393571
+      },
+      {
+       "year": 8,
+       "grossRent": 36896.215963,
+       "operatingExpenses": 13415.464124,
+       "noi": 20529.054562,
+       "debtService": 17512.148607,
+       "cashFlow": 3016.905954,
+       "cumulativeCashFlow": 8333.684425,
+       "propertyValue": 380031.024416,
+       "loanBalance": 200430.621073,
+       "equity": 179600.403344,
+       "netSaleProceeds": 156798.541879,
+       "totalProfit": 81132.226304
+      },
+      {
+       "year": 9,
+       "grossRent": 38003.102442,
+       "operatingExpenses": 13817.928048,
+       "noi": 21144.926199,
+       "debtService": 17512.148607,
+       "cashFlow": 3632.777591,
+       "cumulativeCashFlow": 11966.462017,
+       "propertyValue": 391431.955149,
+       "loanBalance": 196321.972792,
+       "equity": 195109.982356,
+       "netSaleProceeds": 171624.065047,
+       "totalProfit": 99590.527064
+      },
+      {
+       "year": 10,
+       "grossRent": 39143.195515,
+       "operatingExpenses": 14232.465889,
+       "noi": 21779.273984,
+       "debtService": 17512.148607,
+       "cashFlow": 4267.125377,
+       "cumulativeCashFlow": 16233.587394,
+       "propertyValue": 403174.913803,
+       "loanBalance": 191927.24781,
+       "equity": 211247.665993,
+       "netSaleProceeds": 187057.171165,
+       "totalProfit": 119290.758558
+      },
+      {
+       "year": 11,
+       "grossRent": 40317.49138,
+       "operatingExpenses": 14659.439866,
+       "noi": 22432.652204,
+       "debtService": 17512.148607,
+       "cashFlow": 4920.503597,
+       "cumulativeCashFlow": 21154.09099,
+       "propertyValue": 415270.161217,
+       "loanBalance": 187226.527196,
+       "equity": 228043.634021,
+       "netSaleProceeds": 203127.424348,
+       "totalProfit": 140281.515339
+      },
+      {
+       "year": 12,
+       "grossRent": 41527.016122,
+       "operatingExpenses": 15099.223062,
+       "noi": 23105.63177,
+       "debtService": 17512.148607,
+       "cashFlow": 5593.483163,
+       "cumulativeCashFlow": 26747.574153,
+       "propertyValue": 427728.266054,
+       "loanBalance": 182198.505105,
+       "equity": 245529.760949,
+       "netSaleProceeds": 219866.064986,
+       "totalProfit": 162613.639139
+      },
+      {
+       "year": 13,
+       "grossRent": 42772.826605,
+       "operatingExpenses": 15552.199754,
+       "noi": 23798.800723,
+       "debtService": 17512.148607,
+       "cashFlow": 6286.652116,
+       "cumulativeCashFlow": 33034.226269,
+       "propertyValue": 440560.114035,
+       "loanBalance": 176820.39221,
+       "equity": 263739.721825,
+       "netSaleProceeds": 237306.114983,
+       "totalProfit": 186340.341252
+      },
+      {
+       "year": 14,
+       "grossRent": 44056.011404,
+       "operatingExpenses": 16018.765746,
+       "noi": 24512.764745,
+       "debtService": 17512.148607,
+       "cashFlow": 7000.616138,
+       "cumulativeCashFlow": 40034.842407,
+       "propertyValue": 453776.917457,
+       "loanBalance": 171067.812412,
+       "equity": 282709.105044,
+       "netSaleProceeds": 255482.489997,
+       "totalProfit": 211517.332404
+      },
+      {
+       "year": 15,
+       "grossRent": 45377.691746,
+       "operatingExpenses": 16499.328719,
+       "noi": 25248.147687,
+       "debtService": 17512.148607,
+       "cashFlow": 7735.99908,
+       "cumulativeCashFlow": 47770.841487,
+       "propertyValue": 467390.22498,
+       "loanBalance": 164914.692353,
+       "equity": 302475.532627,
+       "netSaleProceeds": 274432.119128,
+       "totalProfit": 238202.960615
+      },
+      {
+       "year": 16,
+       "grossRent": 46739.022498,
+       "operatingExpenses": 16994.30858,
+       "noi": 26005.592118,
+       "debtService": 17512.148607,
+       "cashFlow": 8493.443511,
+       "cumulativeCashFlow": 56264.284997,
+       "propertyValue": 481411.93173,
+       "loanBalance": 158333.14324,
+       "equity": 323078.788489,
+       "netSaleProceeds": 294194.072585,
+       "totalProfit": 266458.357582
+      },
+      {
+       "year": 17,
+       "grossRent": 48141.193173,
+       "operatingExpenses": 17504.137838,
+       "noi": 26785.759881,
+       "debtService": 17512.148607,
+       "cashFlow": 9273.611274,
+       "cumulativeCashFlow": 65537.896271,
+       "propertyValue": 495854.289682,
+       "loanBalance": 151293.334444,
+       "equity": 344560.955238,
+       "netSaleProceeds": 314809.697857,
+       "totalProfit": 296347.594128
+      },
+      {
+       "year": 18,
+       "grossRent": 49585.428968,
+       "operatingExpenses": 18029.261973,
+       "noi": 27589.332678,
+       "debtService": 17512.148607,
+       "cashFlow": 10077.184071,
+       "cumulativeCashFlow": 75615.080342,
+       "propertyValue": 510729.918372,
+       "loanBalance": 143763.358287,
+       "equity": 366966.560085,
+       "netSaleProceeds": 336322.764983,
+       "totalProfit": 327937.845324
+      },
+      {
+       "year": 19,
+       "grossRent": 51072.991837,
+       "operatingExpenses": 18570.139832,
+       "noi": 28417.012658,
+       "debtService": 17512.148607,
+       "cashFlow": 10904.864051,
+       "cumulativeCashFlow": 86519.944393,
+       "propertyValue": 526051.815923,
+       "loanBalance": 135709.085428,
+       "equity": 390342.730495,
+       "netSaleProceeds": 358779.62154,
+       "totalProfit": 361299.565933
+      },
+      {
+       "year": 20,
+       "grossRent": 52605.181592,
+       "operatingExpenses": 19127.244027,
+       "noi": 29269.523038,
+       "debtService": 17512.148607,
+       "cashFlow": 11757.374431,
+       "cumulativeCashFlow": 98277.318823,
+       "propertyValue": 541833.370401,
+       "loanBalance": 127094.010169,
+       "equity": 414739.360232,
+       "netSaleProceeds": 382229.358008,
+       "totalProfit": 396506.676831
+      },
+      {
+       "year": 21,
+       "grossRent": 54183.33704,
+       "operatingExpenses": 19701.061348,
+       "noi": 30147.608729,
+       "debtService": 17512.148607,
+       "cashFlow": 12635.460122,
+       "cumulativeCashFlow": 110912.778945,
+       "propertyValue": 558088.371513,
+       "loanBalance": 117879.084996,
+       "equity": 440209.286517,
+       "netSaleProceeds": 406723.984226,
+       "totalProfit": 433636.763171
+      },
+      {
+       "year": 22,
+       "grossRent": 55808.837151,
+       "operatingExpenses": 20292.093188,
+       "noi": 31052.036991,
+       "debtService": 17512.148607,
+       "cashFlow": 13539.888384,
+       "cumulativeCashFlow": 124452.667329,
+       "propertyValue": 574831.022658,
+       "loanBalance": 108022.543598,
+       "equity": 466808.47906,
+       "netSaleProceeds": 432318.617701,
+       "totalProfit": 472771.28503
+      },
+      {
+       "year": 23,
+       "grossRent": 57483.102266,
+       "operatingExpenses": 20900.855984,
+       "noi": 31983.598101,
+       "debtService": 17512.148607,
+       "cashFlow": 14471.449493,
+       "cumulativeCashFlow": 138924.116822,
+       "propertyValue": 592075.953338,
+       "loanBalance": 97479.71156,
+       "equity": 494596.241778,
+       "netSaleProceeds": 459071.684577,
+       "totalProfit": 513995.801399
+      },
+      {
+       "year": 24,
+       "grossRent": 59207.595334,
+       "operatingExpenses": 21527.881663,
+       "noi": 32943.106044,
+       "debtService": 17512.148607,
+       "cashFlow": 15430.957436,
+       "cumulativeCashFlow": 154355.074258,
+       "propertyValue": 609838.231938,
+       "loanBalance": 86202.803883,
+       "equity": 523635.428056,
+       "netSaleProceeds": 487045.134139,
+       "totalProfit": 557400.208398
+      },
+      {
+       "year": 25,
+       "grossRent": 60983.823194,
+       "operatingExpenses": 22173.718113,
+       "noi": 33931.399225,
+       "debtService": 17512.148607,
+       "cashFlow": 16419.250618,
+       "cumulativeCashFlow": 170774.324876,
+       "propertyValue": 628133.378896,
+       "loanBalance": 74140.708392,
+       "equity": 553992.670504,
+       "netSaleProceeds": 516304.66777,
+       "totalProfit": 603078.992646
+      },
+      {
+       "year": 26,
+       "grossRent": 62813.33789,
+       "operatingExpenses": 22838.929657,
+       "noi": 34949.341202,
+       "debtService": 17512.148607,
+       "cashFlow": 17437.192594,
+       "cumulativeCashFlow": 188211.517471,
+       "propertyValue": 646977.380263,
+       "loanBalance": 61238.754082,
+       "equity": 585738.626181,
+       "netSaleProceeds": 546919.983365,
+       "totalProfit": 651131.500836
+      },
+      {
+       "year": 27,
+       "grossRent": 64697.738026,
+       "operatingExpenses": 23524.097546,
+       "noi": 35997.821438,
+       "debtService": 17512.148607,
+       "cashFlow": 18485.672831,
+       "cumulativeCashFlow": 206697.190301,
+       "propertyValue": 666386.701671,
+       "loanBalance": 47438.463316,
+       "equity": 618948.238355,
+       "netSaleProceeds": 578965.036255,
+       "totalProfit": 701662.226556
+      },
+      {
+       "year": 28,
+       "grossRent": 66638.670167,
+       "operatingExpenses": 24229.820473,
+       "noi": 37077.756081,
+       "debtService": 17512.148607,
+       "cashFlow": 19565.607474,
+       "cumulativeCashFlow": 226262.797775,
+       "propertyValue": 686378.302721,
+       "loanBalance": 32677.286779,
+       "equity": 653701.015942,
+       "netSaleProceeds": 612518.317779,
+       "totalProfit": 754781.115553
+      },
+      {
+       "year": 29,
+       "grossRent": 68637.830272,
+       "operatingExpenses": 24956.715087,
+       "noi": 38190.088763,
+       "debtService": 17512.148607,
+       "cashFlow": 20677.940156,
+       "cumulativeCashFlow": 246940.737931,
+       "propertyValue": 706969.651803,
+       "loanBalance": 16888.319979,
+       "equity": 690081.331824,
+       "netSaleProceeds": 647663.152716,
+       "totalProfit": 810603.890646
+      },
+      {
+       "year": 30,
+       "grossRent": 70696.96518,
+       "operatingExpenses": 25705.41654,
+       "noi": 39335.791426,
+       "debtService": 17512.148607,
+       "cashFlow": 21823.642819,
+       "cumulativeCashFlow": 268764.38075,
+       "propertyValue": 728178.741357,
+       "loanBalance": 0,
+       "equity": 728178.741357,
+       "netSaleProceeds": 684488.016875,
+       "totalProfit": 869252.397625
+      }
+     ],
+     "cashPaybackMonth": 226,
+     "breakEvenMonth": 31,
+     "horizons": [
+      {
+       "years": 5,
+       "totalProfit": 32754.294398,
+       "equityMultiple": 1.389932,
+       "irrPct": 6.76317
+      },
+      {
+       "years": 10,
+       "totalProfit": 119290.758558,
+       "equityMultiple": 2.420128,
+       "irrPct": 9.375733
+      },
+      {
+       "years": 20,
+       "totalProfit": 396506.676831,
+       "equityMultiple": 5.720318,
+       "irrPct": 9.865018
+      },
+      {
+       "years": 30,
+       "totalProfit": 869252.397625,
+       "equityMultiple": 11.348243,
+       "irrPct": 9.742747
+      }
+     ]
+    },
+    "assumptions": [
+     {
+      "field": "downPaymentPct",
+      "value": 25,
+      "source": "assumed"
+     },
+     {
+      "field": "interestRatePct",
+      "value": 6.75,
+      "source": "assumed"
+     },
+     {
+      "field": "loanTermYears",
+      "value": 30,
+      "source": "assumed"
+     },
+     {
+      "field": "closingCostPct",
+      "value": 3,
+      "source": "assumed"
+     },
+     {
+      "field": "rehabCost",
+      "value": 0,
+      "source": "assumed"
+     },
+     {
+      "field": "propertyTaxAnnual",
+      "value": 3300,
+      "source": "assumed",
+      "note": "Assumed 1.1% of purchase price; no state-specific reassessment rule applied. Confirm with the county."
+     },
+     {
+      "field": "insuranceAnnual",
+      "value": 1500,
+      "source": "assumed"
+     },
+     {
+      "field": "hoaMonthly",
+      "value": 0,
+      "source": "assumed"
+     },
+     {
+      "field": "vacancyPct",
+      "value": 8,
+      "source": "assumed"
+     },
+     {
+      "field": "maintenancePct",
+      "value": 8,
+      "source": "assumed"
+     },
+     {
+      "field": "capexPct",
+      "value": 5,
+      "source": "assumed"
+     },
+     {
+      "field": "managementPct",
+      "value": 8,
+      "source": "assumed"
+     },
+     {
+      "field": "rentGrowthPct",
+      "value": 3,
+      "source": "assumed"
+     },
+     {
+      "field": "expenseGrowthPct",
+      "value": 3,
+      "source": "assumed"
+     },
+     {
+      "field": "appreciationPct",
+      "value": 3,
+      "source": "assumed"
+     },
+     {
+      "field": "sellingCostPct",
+      "value": 6,
+      "source": "assumed"
+     },
+     {
+      "field": "holdYears",
+      "value": 30,
+      "source": "assumed"
+     }
+    ]
+   }
+  },
+  {
+   "name": "California purchase with offer below list, rehab, 15-year loan",
+   "input": {
+    "offerPrice": 640000,
+    "listPrice": 675000,
+    "state": "CA",
+    "monthlyRent": 3800,
+    "rehabCost": 15000,
+    "loanTermYears": 15,
+    "downPaymentPct": 30,
+    "holdYears": 12
+   },
+   "evaluation": {
+    "verdict": "weak",
+    "checks": [
+     {
+      "name": "Positive monthly cash flow",
+      "passed": false,
+      "actual": "-$2,149/mo",
+      "threshold": "> $0"
+     },
+     {
+      "name": "Cash-on-cash return",
+      "passed": false,
+      "actual": "-11.4%",
+      "threshold": ">= 8%"
+     },
+     {
+      "name": "Cap rate",
+      "passed": false,
+      "actual": "3.4%",
+      "threshold": ">= 6%"
+     },
+     {
+      "name": "Debt service coverage",
+      "passed": false,
+      "actual": "0.46",
+      "threshold": ">= 1.25"
+     }
+    ],
+    "yearOne": {
+     "grossAnnualRent": 45600,
+     "vacancyLoss": 3648,
+     "effectiveRent": 41952,
+     "operatingExpenses": {
+      "propertyTax": 7680,
+      "insurance": 3200,
+      "hoa": 0,
+      "maintenance": 3648,
+      "capex": 2280,
+      "management": 3356.16,
+      "total": 20164.16
+     },
+     "noi": 21787.84,
+     "loanAmount": 448000,
+     "monthlyPrincipalAndInterest": 3964.394391,
+     "annualDebtService": 47572.732691,
+     "annualCashFlow": -25784.892691,
+     "monthlyCashFlow": -2148.741058,
+     "cashInvested": 226200,
+     "capRatePct": 3.40435,
+     "cashOnCashPct": -11.399157,
+     "dscr": 0.45799,
+     "grossRentMultiplier": 14.035088,
+     "rentToPricePct": 0.580153,
+     "breakEvenOccupancyPct": 153.462845,
+     "fiftyPercentRuleMonthlyCashFlow": -2064.394391
+    },
+    "hold": {
+     "years": [
+      {
+       "year": 1,
+       "grossRent": 45600,
+       "operatingExpenses": 20164.16,
+       "noi": 21787.84,
+       "debtService": 47572.732691,
+       "cashFlow": -25784.892691,
+       "cumulativeCashFlow": -25784.892691,
+       "propertyValue": 659200,
+       "loanBalance": 430120.853149,
+       "equity": 229079.146851,
+       "netSaleProceeds": 189527.146851,
+       "totalProfit": -62457.74584
+      },
+      {
+       "year": 2,
+       "grossRent": 46968,
+       "operatingExpenses": 20769.0848,
+       "noi": 22441.4752,
+       "debtService": 47572.732691,
+       "cashFlow": -25131.257491,
+       "cumulativeCashFlow": -50916.150182,
+       "propertyValue": 678976,
+       "loanBalance": 410996.818196,
+       "equity": 267979.181804,
+       "netSaleProceeds": 227240.621804,
+       "totalProfit": -49875.528378
+      },
+      {
+       "year": 3,
+       "grossRent": 48377.04,
+       "operatingExpenses": 21392.157344,
+       "noi": 23114.719456,
+       "debtService": 47572.732691,
+       "cashFlow": -24458.013235,
+       "cumulativeCashFlow": -75374.163416,
+       "propertyValue": 699345.28,
+       "loanBalance": 390541.21615,
+       "equity": 308804.06385,
+       "netSaleProceeds": 266843.34705,
+       "totalProfit": -34730.816366
+      },
+      {
+       "year": 4,
+       "grossRent": 49828.3512,
+       "operatingExpenses": 22033.922064,
+       "noi": 23808.16104,
+       "debtService": 47572.732691,
+       "cashFlow": -23764.571651,
+       "cumulativeCashFlow": -99138.735067,
+       "propertyValue": 720325.6384,
+       "loanBalance": 368661.332742,
+       "equity": 351664.305658,
+       "netSaleProceeds": 308444.767354,
+       "totalProfit": -16893.967714
+      },
+      {
+       "year": 5,
+       "grossRent": 51323.201736,
+       "operatingExpenses": 22694.939726,
+       "noi": 24522.405871,
+       "debtService": 47572.732691,
+       "cashFlow": -23050.32682,
+       "cumulativeCashFlow": -122189.061887,
+       "propertyValue": 741935.407552,
+       "loanBalance": 345257.9982,
+       "equity": 396677.409352,
+       "netSaleProceeds": 352161.284899,
+       "totalProfit": 3772.223011
+      },
+      {
+       "year": 6,
+       "grossRent": 52862.897788,
+       "operatingExpenses": 23375.787918,
+       "noi": 25258.078047,
+       "debtService": 47572.732691,
+       "cashFlow": -22314.654644,
+       "cumulativeCashFlow": -144503.716531,
+       "propertyValue": 764193.469779,
+       "loanBalance": 320225.137765,
+       "equity": 443968.332014,
+       "netSaleProceeds": 398116.723827,
+       "totalProfit": 27413.007296
+      },
+      {
+       "year": 7,
+       "grossRent": 54448.784722,
+       "operatingExpenses": 24077.061556,
+       "noi": 26015.820388,
+       "debtService": 47572.732691,
+       "cashFlow": -21556.912302,
+       "cumulativeCashFlow": -166060.628833,
+       "propertyValue": 787119.273872,
+       "loanBalance": 293449.290911,
+       "equity": 493669.982961,
+       "netSaleProceeds": 446442.826528,
+       "totalProfit": 54182.197695
+      },
+      {
+       "year": 8,
+       "grossRent": 56082.248263,
+       "operatingExpenses": 24799.373402,
+       "noi": 26796.295,
+       "debtService": 47572.732691,
+       "cashFlow": -20776.437691,
+       "cumulativeCashFlow": -186837.066524,
+       "propertyValue": 810732.852088,
+       "loanBalance": 264809.097091,
+       "equity": 545923.754997,
+       "netSaleProceeds": 497279.783872,
+       "totalProfit": 84242.717347
+      },
+      {
+       "year": 9,
+       "grossRent": 57764.715711,
+       "operatingExpenses": 25543.354604,
+       "noi": 27600.18385,
+       "debtService": 47572.732691,
+       "cashFlow": -19972.548841,
+       "cumulativeCashFlow": -206809.615365,
+       "propertyValue": 835054.837651,
+       "loanBalance": 234174.745672,
+       "equity": 600880.091978,
+       "netSaleProceeds": 550776.801719,
+       "totalProfit": 117767.186354
+      },
+      {
+       "year": 10,
+       "grossRent": 59497.657183,
+       "operatingExpenses": 26309.655242,
+       "noi": 28428.189366,
+       "debtService": 47572.732691,
+       "cashFlow": -19144.543325,
+       "cumulativeCashFlow": -225954.15869,
+       "propertyValue": 860106.48278,
+       "loanBalance": 201407.387576,
+       "equity": 658699.095204,
+       "netSaleProceeds": 607092.706237,
+       "totalProfit": 154938.547547
+      },
+      {
+       "year": 11,
+       "grossRent": 61282.586898,
+       "operatingExpenses": 27098.9449,
+       "noi": 29281.035047,
+       "debtService": 47572.732691,
+       "cashFlow": -18291.697644,
+       "cumulativeCashFlow": -244245.856334,
+       "propertyValue": 885909.677264,
+       "loanBalance": 166358.505949,
+       "equity": 719551.171315,
+       "netSaleProceeds": 666396.590679,
+       "totalProfit": 195950.734345
+      },
+      {
+       "year": 12,
+       "grossRent": 63121.064505,
+       "operatingExpenses": 27911.913247,
+       "noi": 30159.466098,
+       "debtService": 47572.732691,
+       "cashFlow": -17413.266593,
+       "cumulativeCashFlow": -261659.122927,
+       "propertyValue": 912486.967582,
+       "loanBalance": 128869.243014,
+       "equity": 783617.724567,
+       "netSaleProceeds": 728868.506512,
+       "totalProfit": 241009.383585
+      }
+     ],
+     "cashPaybackMonth": null,
+     "breakEvenMonth": 58,
+     "horizons": [
+      {
+       "years": 5,
+       "totalProfit": 3772.223011,
+       "equityMultiple": 1.016676,
+       "irrPct": 0.271565
+      },
+      {
+       "years": 10,
+       "totalProfit": 154938.547547,
+       "equityMultiple": 1.684963,
+       "irrPct": 3.958866
+      },
+      {
+       "years": 12,
+       "totalProfit": 241009.383585,
+       "equityMultiple": 2.06547,
+       "irrPct": 4.529891
+      }
+     ]
+    },
+    "assumptions": [
+     {
+      "field": "downPaymentPct",
+      "value": 30,
+      "source": "provided"
+     },
+     {
+      "field": "interestRatePct",
+      "value": 6.75,
+      "source": "assumed"
+     },
+     {
+      "field": "loanTermYears",
+      "value": 15,
+      "source": "provided"
+     },
+     {
+      "field": "closingCostPct",
+      "value": 3,
+      "source": "assumed"
+     },
+     {
+      "field": "rehabCost",
+      "value": 15000,
+      "source": "provided"
+     },
+     {
+      "field": "propertyTaxAnnual",
+      "value": 7680,
+      "source": "assumed",
+      "note": "California reassesses property tax to the purchase price on sale, so tax defaults to 1.2% (approximate) of purchase price rather than the seller's current bill. Prop 13 / Prop 19: assessed value resets to the purchase price on change of ownership; 1% base rate plus local assessments, typically 1.1-1.25% of price (approximate; varies by county and Mello-Roos)."
+     },
+     {
+      "field": "insuranceAnnual",
+      "value": 3200,
+      "source": "assumed"
+     },
+     {
+      "field": "hoaMonthly",
+      "value": 0,
+      "source": "assumed"
+     },
+     {
+      "field": "vacancyPct",
+      "value": 8,
+      "source": "assumed"
+     },
+     {
+      "field": "maintenancePct",
+      "value": 8,
+      "source": "assumed"
+     },
+     {
+      "field": "capexPct",
+      "value": 5,
+      "source": "assumed"
+     },
+     {
+      "field": "managementPct",
+      "value": 8,
+      "source": "assumed"
+     },
+     {
+      "field": "rentGrowthPct",
+      "value": 3,
+      "source": "assumed"
+     },
+     {
+      "field": "expenseGrowthPct",
+      "value": 3,
+      "source": "assumed"
+     },
+     {
+      "field": "appreciationPct",
+      "value": 3,
+      "source": "assumed"
+     },
+     {
+      "field": "sellingCostPct",
+      "value": 6,
+      "source": "assumed"
+     },
+     {
+      "field": "holdYears",
+      "value": 12,
+      "source": "provided"
+     }
+    ],
+    "listPriceComparison": {
+     "listPrice": 675000,
+     "purchasePrice": 640000,
+     "discountAmount": 35000,
+     "discountPct": 5.185185
+    }
+   }
+  },
+  {
+   "name": "high rate, HOA, all assumptions provided",
+   "input": {
+    "purchasePrice": 180000,
+    "monthlyRent": 1700,
+    "downPaymentPct": 20,
+    "interestRatePct": 9.25,
+    "loanTermYears": 30,
+    "closingCostPct": 4,
+    "rehabCost": 8000,
+    "propertyTaxAnnual": 2900,
+    "insuranceAnnual": 1300,
+    "hoaMonthly": 120,
+    "vacancyPct": 6,
+    "maintenancePct": 7,
+    "capexPct": 4,
+    "managementPct": 10,
+    "rentGrowthPct": 2.5,
+    "expenseGrowthPct": 3.5,
+    "appreciationPct": 2,
+    "sellingCostPct": 7,
+    "holdYears": 20
+   },
+   "evaluation": {
+    "verdict": "weak",
+    "checks": [
+     {
+      "name": "Positive monthly cash flow",
+      "passed": false,
+      "actual": "-$403/mo",
+      "threshold": "> $0"
+     },
+     {
+      "name": "Cash-on-cash return",
+      "passed": false,
+      "actual": "-9.5%",
+      "threshold": ">= 8%"
+     },
+     {
+      "name": "Cap rate",
+      "passed": false,
+      "actual": "5.2%",
+      "threshold": ">= 6%"
+     },
+     {
+      "name": "Debt service coverage",
+      "passed": false,
+      "actual": "0.66",
+      "threshold": ">= 1.25"
+     }
+    ],
+    "yearOne": {
+     "grossAnnualRent": 20400,
+     "vacancyLoss": 1224,
+     "effectiveRent": 19176,
+     "operatingExpenses": {
+      "propertyTax": 2900,
+      "insurance": 1300,
+      "hoa": 1440,
+      "maintenance": 1428,
+      "capex": 816,
+      "management": 1917.6,
+      "total": 9801.6
+     },
+     "noi": 9374.4,
+     "loanAmount": 144000,
+     "monthlyPrincipalAndInterest": 1184.652613,
+     "annualDebtService": 14215.831353,
+     "annualCashFlow": -4841.431353,
+     "monthlyCashFlow": -403.452613,
+     "cashInvested": 51200,
+     "capRatePct": 5.208,
+     "cashOnCashPct": -9.455921,
+     "dscr": 0.659434,
+     "grossRentMultiplier": 8.823529,
+     "rentToPricePct": 0.904255,
+     "breakEvenOccupancyPct": 120.369452,
+     "fiftyPercentRuleMonthlyCashFlow": -334.652613
+    },
+    "hold": {
+     "years": [
+      {
+       "year": 1,
+       "grossRent": 20400,
+       "operatingExpenses": 9801.6,
+       "noi": 9374.4,
+       "debtService": 14215.831353,
+       "cashFlow": -4841.431353,
+       "cumulativeCashFlow": -4841.431353,
+       "propertyValue": 183600,
+       "loanBalance": 143065.196132,
+       "equity": 40534.803868,
+       "netSaleProceeds": 27682.803868,
+       "totalProfit": -28358.627485
+      },
+      {
+       "year": 2,
+       "grossRent": 20910,
+       "operatingExpenses": 10103.04,
+       "noi": 9552.36,
+       "debtService": 14215.831353,
+       "cashFlow": -4663.471353,
+       "cumulativeCashFlow": -9504.902705,
+       "propertyValue": 187272,
+       "loanBalance": 142040.161118,
+       "equity": 45231.838882,
+       "netSaleProceeds": 32122.798882,
+       "totalProfit": -28582.103823
+      },
+      {
+       "year": 3,
+       "grossRent": 21432.75,
+       "operatingExpenses": 10413.99,
+       "noi": 9732.795,
+       "debtService": 14215.831353,
+       "cashFlow": -4483.036353,
+       "cumulativeCashFlow": -13987.939058,
+       "propertyValue": 191017.44,
+       "loanBalance": 140916.185472,
+       "equity": 50101.254528,
+       "netSaleProceeds": 36730.033728,
+       "totalProfit": -28457.905331
+      },
+      {
+       "year": 4,
+       "grossRent": 21968.56875,
+       "operatingExpenses": 10734.75684,
+       "noi": 9915.697785,
+       "debtService": 14215.831353,
+       "cashFlow": -4300.133568,
+       "cumulativeCashFlow": -18288.072626,
+       "propertyValue": 194837.7888,
+       "loanBalance": 139683.719036,
+       "equity": 55154.069764,
+       "netSaleProceeds": 41515.424548,
+       "totalProfit": -27972.648078
+      },
+      {
+       "year": 5,
+       "grossRent": 22517.782969,
+       "operatingExpenses": 11065.657449,
+       "noi": 10101.058541,
+       "debtService": 14215.831353,
+       "cashFlow": -4114.772811,
+       "cumulativeCashFlow": -22402.845437,
+       "propertyValue": 198734.544576,
+       "loanBalance": 138332.289827,
+       "equity": 60402.254749,
+       "netSaleProceeds": 46490.836629,
+       "totalProfit": -27112.008808
+      },
+      {
+       "year": 6,
+       "grossRent": 23080.727543,
+       "operatingExpenses": 11407.019183,
+       "noi": 10288.864708,
+       "debtService": 14215.831353,
+       "cashFlow": -3926.966645,
+       "cumulativeCashFlow": -26329.812082,
+       "propertyValue": 202709.235468,
+       "loanBalance": 136850.415066,
+       "equity": 65858.820402,
+       "netSaleProceeds": 51669.173919,
+       "totalProfit": -25860.638163
+      },
+      {
+       "year": 7,
+       "grossRent": 23657.745732,
+       "operatingExpenses": 11759.18017,
+       "noi": 10479.100818,
+       "debtService": 14215.831353,
+       "cashFlow": -3736.730535,
+       "cumulativeCashFlow": -30066.542617,
+       "propertyValue": 206763.420177,
+       "loanBalance": 135225.503606,
+       "equity": 71537.916571,
+       "netSaleProceeds": 57064.477159,
+       "totalProfit": -24202.065458
+      },
+      {
+       "year": 8,
+       "grossRent": 24249.189375,
+       "operatingExpenses": 12122.489674,
+       "noi": 10671.748338,
+       "debtService": 14215.831353,
+       "cashFlow": -3544.083015,
+       "cumulativeCashFlow": -33610.625632,
+       "propertyValue": 210898.68858,
+       "loanBalance": 133443.748953,
+       "equity": 77454.939628,
+       "netSaleProceeds": 62692.031427,
+       "totalProfit": -22118.594204
+      },
+      {
+       "year": 9,
+       "grossRent": 24855.419109,
+       "operatingExpenses": 12497.308467,
+       "noi": 10866.785496,
+       "debtService": 14215.831353,
+       "cashFlow": -3349.045857,
+       "cumulativeCashFlow": -36959.671489,
+       "propertyValue": 215116.662352,
+       "loanBalance": 131490.01195,
+       "equity": 83626.650402,
+       "netSaleProceeds": 68568.484037,
+       "totalProfit": -19591.187451
+      },
+      {
+       "year": 10,
+       "grossRent": 25476.804587,
+       "operatingExpenses": 12884.009208,
+       "noi": 11064.187104,
+       "debtService": 14215.831353,
+       "cashFlow": -3151.644249,
+       "cumulativeCashFlow": -40111.315738,
+       "propertyValue": 219418.995599,
+       "loanBalance": 129347.692148,
+       "equity": 90071.303451,
+       "netSaleProceeds": 74711.973759,
+       "totalProfit": -16599.341979
+      },
+      {
+       "year": 11,
+       "grossRent": 26113.724702,
+       "operatingExpenses": 13282.976849,
+       "noi": 11263.92437,
+       "debtService": 14215.831353,
+       "cashFlow": -2951.906982,
+       "cumulativeCashFlow": -43063.22272,
+       "propertyValue": 223807.375511,
+       "loanBalance": 126998.586754,
+       "equity": 96808.788757,
+       "netSaleProceeds": 81142.272471,
+       "totalProfit": -13120.950249
+      },
+      {
+       "year": 12,
+       "grossRent": 26766.567819,
+       "operatingExpenses": 13694.60904,
+       "noi": 11465.96471,
+       "debtService": 14215.831353,
+       "cashFlow": -2749.866643,
+       "cumulativeCashFlow": -45813.089363,
+       "propertyValue": 228283.523021,
+       "loanBalance": 124422.735964,
+       "equity": 103860.787058,
+       "netSaleProceeds": 87880.940446,
+       "totalProfit": -9132.148917
+      },
+      {
+       "year": 13,
+       "grossRent": 27435.732015,
+       "operatingExpenses": 14119.316558,
+       "noi": 11670.271535,
+       "debtService": 14215.831353,
+       "cashFlow": -2545.559817,
+       "cumulativeCashFlow": -48358.64918,
+       "propertyValue": 232849.193482,
+       "loanBalance": 121598.253371,
+       "equity": 111250.940111,
+       "netSaleProceeds": 94951.496567,
+       "totalProfit": -4607.152614
+      },
+      {
+       "year": 14,
+       "grossRent": 28121.625315,
+       "operatingExpenses": 14557.523745,
+       "noi": 11876.804051,
+       "debtService": 14215.831353,
+       "cashFlow": -2339.027301,
+       "cumulativeCashFlow": -50697.676482,
+       "propertyValue": 237506.177351,
+       "loanBalance": 118501.140004,
+       "equity": 119005.037347,
+       "netSaleProceeds": 102379.604933,
+       "totalProfit": 481.928451
+      },
+      {
+       "year": 15,
+       "grossRent": 28824.665948,
+       "operatingExpenses": 15009.66896,
+       "noi": 12085.517031,
+       "debtService": 14215.831353,
+       "cashFlow": -2130.314322,
+       "cumulativeCashFlow": -52827.990803,
+       "propertyValue": 242256.300898,
+       "loanBalance": 115105.080409,
+       "equity": 127151.22049,
+       "netSaleProceeds": 110193.279427,
+       "totalProfit": 6165.288623
+      },
+      {
+       "year": 16,
+       "grossRent": 29545.282597,
+       "operatingExpenses": 15476.205055,
+       "noi": 12296.360586,
+       "debtService": 14215.831353,
+       "cashFlow": -1919.470767,
+       "cumulativeCashFlow": -54747.461571,
+       "propertyValue": 247101.426916,
+       "loanBalance": 111381.219056,
+       "equity": 135720.207861,
+       "netSaleProceeds": 118423.107977,
+       "totalProfit": 12475.646406
+      },
+      {
+       "year": 17,
+       "grossRent": 30283.914661,
+       "operatingExpenses": 15957.599856,
+       "noi": 12509.279926,
+       "debtService": 14215.831353,
+       "cashFlow": -1706.551427,
+       "cumulativeCashFlow": -56454.012997,
+       "propertyValue": 252043.455455,
+       "loanBalance": 107297.915159,
+       "equity": 144745.540295,
+       "netSaleProceeds": 127102.498413,
+       "totalProfit": 19448.485416
+      },
+      {
+       "year": 18,
+       "grossRent": 31041.012528,
+       "operatingExpenses": 16454.336665,
+       "noi": 12724.215112,
+       "debtService": 14215.831353,
+       "cashFlow": -1491.616241,
+       "cumulativeCashFlow": -57945.629238,
+       "propertyValue": 257084.324564,
+       "loanBalance": 102820.473835,
+       "equity": 154263.850729,
+       "netSaleProceeds": 136267.948009,
+       "totalProfit": 27122.318771
+      },
+      {
+       "year": 19,
+       "grossRent": 31817.037841,
+       "operatingExpenses": 16966.914782,
+       "noi": 12941.100788,
+       "debtService": 14215.831353,
+       "cashFlow": -1274.730564,
+       "cumulativeCashFlow": -59220.359802,
+       "propertyValue": 262226.011055,
+       "loanBalance": 97910.851303,
+       "equity": 164315.159752,
+       "netSaleProceeds": 145959.338978,
+       "totalProfit": 35538.979176
+      },
+      {
+       "year": 20,
+       "grossRent": 32612.463787,
+       "operatingExpenses": 17495.850042,
+       "noi": 13159.865918,
+       "debtService": 14215.831353,
+       "cashFlow": -1055.965435,
+       "cumulativeCashFlow": -60276.325237,
+       "propertyValue": 267470.531276,
+       "loanBalance": 92527.331641,
+       "equity": 174943.199635,
+       "netSaleProceeds": 156220.262446,
+       "totalProfit": 44743.937208
+      }
+     ],
+     "cashPaybackMonth": null,
+     "breakEvenMonth": 167,
+     "horizons": [
+      {
+       "years": 5,
+       "totalProfit": -27112.008808,
+       "equityMultiple": 0.470469,
+       "irrPct": -10.958381
+      },
+      {
+       "years": 10,
+       "totalProfit": -16599.341979,
+       "equityMultiple": 0.675794,
+       "irrPct": -2.599363
+      },
+      {
+       "years": 20,
+       "totalProfit": 44743.937208,
+       "equityMultiple": 1.873905,
+       "irrPct": 2.153095
+      }
+     ]
+    },
+    "assumptions": [
+     {
+      "field": "downPaymentPct",
+      "value": 20,
+      "source": "provided"
+     },
+     {
+      "field": "interestRatePct",
+      "value": 9.25,
+      "source": "provided"
+     },
+     {
+      "field": "loanTermYears",
+      "value": 30,
+      "source": "provided"
+     },
+     {
+      "field": "closingCostPct",
+      "value": 4,
+      "source": "provided"
+     },
+     {
+      "field": "rehabCost",
+      "value": 8000,
+      "source": "provided"
+     },
+     {
+      "field": "propertyTaxAnnual",
+      "value": 2900,
+      "source": "provided"
+     },
+     {
+      "field": "insuranceAnnual",
+      "value": 1300,
+      "source": "provided"
+     },
+     {
+      "field": "hoaMonthly",
+      "value": 120,
+      "source": "provided"
+     },
+     {
+      "field": "vacancyPct",
+      "value": 6,
+      "source": "provided"
+     },
+     {
+      "field": "maintenancePct",
+      "value": 7,
+      "source": "provided"
+     },
+     {
+      "field": "capexPct",
+      "value": 4,
+      "source": "provided"
+     },
+     {
+      "field": "managementPct",
+      "value": 10,
+      "source": "provided"
+     },
+     {
+      "field": "rentGrowthPct",
+      "value": 2.5,
+      "source": "provided"
+     },
+     {
+      "field": "expenseGrowthPct",
+      "value": 3.5,
+      "source": "provided"
+     },
+     {
+      "field": "appreciationPct",
+      "value": 2,
+      "source": "provided"
+     },
+     {
+      "field": "sellingCostPct",
+      "value": 7,
+      "source": "provided"
+     },
+     {
+      "field": "holdYears",
+      "value": 20,
+      "source": "provided"
+     }
+    ]
+   }
+  }
+ ]
+}

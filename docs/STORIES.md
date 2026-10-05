@@ -16,7 +16,7 @@ The build backlog for evalprop. Each story is a self-contained brief an agent ca
 | ID | Story | Step | Track | Depends on | Status |
 |---|---|---|---|---|---|
 | S00 | Repo skeleton, shared contracts, emulators, CI | 0 | Sequential | — | done ([#1](https://github.com/p20y/evalprop/pull/1)) |
-| S01 | Adopt and harden the calculation engine | Launch | A: engine | S00 | todo |
+| S01 | Adopt and harden the calculation engine | Launch | A: engine | S00 | in review ([#2](https://github.com/p20y/evalprop/pull/2)) |
 | S02 | Comp selection engine (search ladder, similarity, confidence) | Launch | A: engine | S00 | todo |
 | S03 | Data gateway: provider interfaces, cache, fixtures, usage ledger | Launch | B: data | S00 | todo |
 | S04 | Property, rent, and sale data provider (spike, then adapter) | Launch | B: data, human review | S03 | todo |
@@ -127,7 +127,7 @@ After S00 is accepted, tracks **A (engine, comps), B (data)** run in parallel. S
 
 **Out of scope:** financing types beyond fixed-rate (1.1), stress case (1.1), after-tax view (later), any I/O.
 
-**Outcome:** _(filled in when merged)_
+**Outcome:** In review ([#2](https://github.com/p20y/evalprop/pull/2)). The engine moved with `git mv` into `packages/engine/src/` (legacy `src/`, `test/`, root `tsconfig.json` removed; root `test`/`typecheck` scripts now only run the workspace packages) and compiles under the strict base config with `noUncheckedIndexedAccess` (indexing fixed in `hold.ts`; typed range table in `defaults.ts`). The package root exports `evaluate`, `sensitivity`, `breakEvenRent`, `maxPriceForCashOnCash`, `monthlyPayment`, `balanceAfter`, `irr`, `InputError`, all types, `ENGINE_VERSION = "1.0.0"`, and the tax table helpers; `apps/server` `/health` is untouched and passes. `grossRentMultiplier` is `number | null`. `InputError` carries a `field`. New optional inputs: `offerPrice` (alias of `purchasePrice`; conflicting values are rejected), `listPrice` (result gains optional `listPriceComparison` with discount amount and percent), `state` (two-letter). `property-tax-reassessment.ts` has CA (1.2% of purchase price, Prop 13/19) and FL (1.5%, approximate), each with a source and an `approximate` flag; unsupplied tax in those states defaults to rate x purchase price with an assumption `note`, all other states keep 1.1%. `evals/golden/` has six hand-verified cases (all-cash, leveraged, negative cash flow, high rate, 15-year loan, California offer below list) and `recompute.mjs`, a plain-Node script that does not import the engine; the engine test runs both. A snapshot of three reference deals guards `ENGINE_VERSION` (`pnpm --filter @evalprop/engine snapshot:update` refuses to rewrite a changed snapshot unless the version was bumped). A `*.typecheck.ts` file proves `Evaluation` is mutually assignable with `EvaluationSchema`. Tests: 59 in `packages/engine` (the original 20 plus 39: golden 8, state tax / offer and list price / InputError / finite output / check strings / amortization cross-check 22, seeded property tests 4, shared contract 2, version guard 3), 70 across the repo; no network. Deviations: (1) the 20 original tests changed more than import paths: `!` assertions added in the test file only, because `noUncheckedIndexedAccess` and `grossRentMultiplier: number | null` otherwise fail typecheck; assertions are unchanged. (2) `AssumptionRecord.field` is `string` (not `keyof ResolvedInput`) so the engine type is mutually assignable with the shared schema's `field: z.string()`. (3) The `Evaluation` gains two optional fields that `EvaluationSchema` does not have yet, `listPriceComparison` and `assumptions[].note`; mutual assignability still holds, but `packages/shared` needs matching optional fields (F5). (4) A display bug was fixed on the way: the cash-flow check printed `$-68/mo`; it now prints `-$68/mo`. (5) The CA/FL rates are labelled approximate; other reassessing states (for example MI, NM) were left out because their rates could not be verified.
 
 ---
 
@@ -539,4 +539,8 @@ After S00 is accepted, tracks **A (engine, comps), B (data)** run in parallel. S
 | F3 | Open questions 1–8 in ARCHITECTURE §15 (auth vendor, data provider, pricing, Muse docs, comp ladder order, rural radius, short-term rental, GCP ownership) | Design | open |
 | F4 | A draft report renderer was prototyped locally during design but is intentionally not part of the repo; S08 builds the report from the spec and approved mockups | Design | open |
 
-_Next free follow-up number: F5._
+| F5 | `packages/shared` `EvaluationSchema` needs two optional additions to match the engine: `assumptions[].note` (string) and top-level `listPriceComparison` (`{ listPrice, purchasePrice, discountAmount, discountPct }`). Until then zod strips them on parse. Also consider reusing `ENGINE_VERSION` from the engine in `Analysis.engineVersion` | S01 | open |
+| F6 | State property-tax reassessment table covers CA and FL only, with approximate rates; add MI, NM, SC and others once a source and rate are confirmed, and refresh on the F2 schedule | S01 | open |
+| F7 | `README.md` and `ARCHITECTURE.md` (§4, last paragraph) still say the engine lives in `src/calc/`; `ARCHITECTURE.md` §8 says "20 tests". Outside S01's May touch list; update in the next docs change | S01 | open |
+
+_Next free follow-up number: F8._

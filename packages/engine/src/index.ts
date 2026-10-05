@@ -1,2 +1,11 @@
-// Placeholder: S01 moves the calculation engine (currently in /src/calc) into this package.
-export const ENGINE_VERSION = "0.0.0";
+export { ENGINE_VERSION } from "./version.ts";
+export { evaluate } from "./evaluate.ts";
+export { InputError } from "./defaults.ts";
+export { monthlyPayment, balanceAfter } from "./mortgage.ts";
+export { irr } from "./irr.ts";
+export { sensitivity } from "./sensitivity.ts";
+export type { NumericField, SensitivityGrid } from "./sensitivity.ts";
+export { breakEvenRent, maxPriceForCashOnCash } from "./targets.ts";
+export { PROPERTY_TAX_REASSESSMENT, DEFAULT_PROPERTY_TAX_RATE_PCT, defaultPropertyTax } from "./property-tax-reassessment.ts";
+export type { ReassessmentRule, DefaultPropertyTax } from "./property-tax-reassessment.ts";
+export type * from "./types.ts";
