@@ -6,8 +6,10 @@
   "exports": { ".": "./src/index.ts" },
   "scripts": {
     "test": "node --test \"src/**/*.test.ts\"",
+    "fixtures:update": "UPDATE_FIXTURES=1 node --test src/fixtures.test.ts",
     "typecheck": "tsc --noEmit -p .",
     "build": "tsc --noEmit -p ."
   },
-  "dependencies": { "@evalprop/shared": "workspace:*" }
+  "dependencies": { "@evalprop/engine": "workspace:*", "@evalprop/shared": "workspace:*" },
+  "devDependencies": { "@evalprop/comps": "workspace:*" }
 }

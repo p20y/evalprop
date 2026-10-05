@@ -205,6 +205,9 @@ importers:
       '@evalprop/engine':
         specifier: workspace:*
         version: link:../../packages/engine
+      '@evalprop/report':
+        specifier: workspace:*
+        version: link:../../packages/report
       '@evalprop/shared':
         specifier: workspace:*
         version: link:../../packages/shared
@@ -217,6 +220,9 @@ importers:
       hono:
         specifier: ^4.13.13
         version: 4.13.13
+      zod:
+        specifier: ^4.6.5
+        version: 4.6.5
 
   apps/widget:
     dependencies:
@@ -247,9 +253,16 @@ importers:
 
   packages/report:
     dependencies:
+      '@evalprop/engine':
+        specifier: workspace:*
+        version: link:../engine
       '@evalprop/shared':
         specifier: workspace:*
         version: link:../shared
+    devDependencies:
+      '@evalprop/comps':
+        specifier: workspace:*
+        version: link:../comps
 
   packages/shared:
     dependencies:

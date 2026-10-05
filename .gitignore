@@ -11,3 +11,4 @@ ui-debug.log
 *.local
 reference/
 .claude/
+evals/report-fixtures/screenshots/
