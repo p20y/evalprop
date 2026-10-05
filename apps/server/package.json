@@ -5,9 +5,17 @@
   "type": "module",
   "exports": { ".": "./src/index.ts" },
   "scripts": {
-    "test": "node --test \"src/**/*.test.ts\"",
+    "test": "node --test $(find src -name '*.test.ts' -not -name '*.emulator.test.ts')",
     "typecheck": "tsc --noEmit -p .",
     "build": "tsc --noEmit -p ."
   },
-  "dependencies": { "@evalprop/shared": "workspace:*", "@evalprop/engine": "workspace:*", "hono": "^4.13.13", "@hono/node-server": "^2.1.3" }
+  "dependencies": {
+    "@evalprop/shared": "workspace:*",
+    "@evalprop/engine": "workspace:*",
+    "@evalprop/comps": "workspace:*",
+    "@evalprop/data": "workspace:*",
+    "firebase-admin": "^14.5.0",
+    "hono": "^4.13.13",
+    "@hono/node-server": "^2.1.3"
+  }
 }
