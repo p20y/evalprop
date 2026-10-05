@@ -23,7 +23,7 @@ The build backlog for evalprop. Each story is a self-contained brief an agent ca
 | S05 | Schools adapter | Launch | B: data | S03 | todo |
 | S06 | `runAnalysis` pipeline + persistence | Launch | C: connector | S01, S02, S03 | in review ([#7](https://github.com/p20y/evalprop/pull/7)) |
 | S07 | MCP server: `analyze_property`, `what_if` | Launch | C: connector | S06 | todo |
-| S08 | Hosted report page + share links | Launch | D: report | S01, S06 | in review ([#PR](https://github.com/p20y/evalprop/pull/PR)) |
+| S08 | Hosted report page + share links | Launch | D: report | S01, S06 | in review ([#8](https://github.com/p20y/evalprop/pull/8)) |
 | S09 | Inline deal card widget (ChatGPT) | Launch | D: report | S07 | todo |
 | S10 | PDF export worker | Launch | D: report | S08 | todo |
 | S11 | OAuth sign-in for the connector (spike, then implement) | Launch | E: account, human review | S07 | todo |
