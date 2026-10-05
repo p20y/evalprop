@@ -470,7 +470,7 @@ function holdSection(a: Analysis): string | null {
   const horizonRows = hold.horizons
     .map((h) => `<tr><td>${h.years}&nbsp;years</td><td class="num">${usd(h.totalProfit)}</td><td class="num">${multiple(h.equityMultiple)}</td><td class="num">${h.irrPct === null ? "n/a" : pct(h.irrPct)}</td></tr>`)
     .join("");
-  const horizons = `<h3>Returns by horizon</h3><div class="scroll"><table><thead><tr><th>Sell after</th><th>Total profit</th><th>Equity multiple</th><th>IRR</th></tr></thead><tbody>${horizonRows}</tbody></table></div>`;
+  const horizons = `<h3>Returns by horizon</h3><div class="scroll"><table class="hz"><thead><tr><th>Sell after</th><th>Total profit</th><th>Equity multiple</th><th>IRR</th></tr></thead><tbody>${horizonRows}</tbody></table></div>`;
 
   const chart = `<h3>Equity, profit if sold, and loan balance</h3>${holdChart(hold.years, hold.breakEvenMonth, hold.cashPaybackMonth)}<p class="chart-note">Hover or tap the chart for exact values by year. Profit if sold = cumulative cash flow plus net sale proceeds (after selling costs and the loan) minus cash invested.</p>`;
   return section("hold", "Long-term hold", `Month-by-month projection over the ${N}-year hold, with rent and expense growth applied.`, `${callouts}${chart}${yearTable}${horizons}`);

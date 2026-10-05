@@ -126,6 +126,7 @@ caption{text-align:left;font-size:13px;color:var(--ink-2);padding:0 0 8px;font-w
 .metaline{display:flex;gap:6px 18px;flex-wrap:wrap;margin:0 0 12px;font-size:14px;color:var(--ink-2)}
 .metaline b{color:var(--ink)}
 .note-box{font-size:13px;color:var(--ink-2);background:var(--neutral);border-radius:8px;padding:10px 12px;margin:10px 0 0}
+.hz td:first-child{white-space:nowrap}
 .yt{min-width:620px}.yt th,.yt td{white-space:nowrap}
 .adj{display:block;font-size:12px;color:var(--ink-3);font-weight:400}
 @media (max-width:640px){.adj{display:inline;margin-left:8px}}
