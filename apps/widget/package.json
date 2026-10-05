@@ -1,0 +1,13 @@
+{
+  "name": "@evalprop/widget",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "scripts": {
+    "test": "node --test \"src/**/*.test.ts\"",
+    "typecheck": "tsc --noEmit -p .",
+    "build": "tsc --noEmit -p ."
+  },
+  "dependencies": { "@evalprop/shared": "workspace:*" }
+}

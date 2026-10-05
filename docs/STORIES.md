@@ -15,7 +15,7 @@ The build backlog for evalprop. Each story is a self-contained brief an agent ca
 
 | ID | Story | Step | Track | Depends on | Status |
 |---|---|---|---|---|---|
-| S00 | Repo skeleton, shared contracts, emulators, CI | 0 | Sequential | — | todo |
+| S00 | Repo skeleton, shared contracts, emulators, CI | 0 | Sequential | — | done ([#1](https://github.com/p20y/evalprop/pull/1)) |
 | S01 | Adopt and harden the calculation engine | Launch | A: engine | S00 | todo |
 | S02 | Comp selection engine (search ladder, similarity, confidence) | Launch | A: engine | S00 | todo |
 | S03 | Data gateway: provider interfaces, cache, fixtures, usage ledger | Launch | B: data | S00 | todo |
@@ -84,7 +84,7 @@ After S00 is accepted, tracks **A (engine, comps), B (data)** run in parallel. S
 **Acceptance criteria**
 - Given a fresh clone, when I run `pnpm install && pnpm test`, then all packages' tests pass without network or emulators.
 - Given the repo, then it is a pnpm workspace with `packages/{shared,engine,comps,data,report}` and `apps/{server,pdf-worker,widget}`, each building and type-checking (apps and packages may be near-empty stubs).
-- Given `packages/shared`, then it exports zod schemas and TS types for: `PropertyFacts`, `Assumptions`, `ResolvedAssumption` (with `source: provided | listing | lookup | assumed`), `Provenance`, `Resolved<T>`, `RentListing`, `SaleListing`, `Comp` (with `matchReason`, `matchClass: same-building | same-size | different-size`), `CompResult`, `School`, `Evaluation` (re-exported from the engine's types), `Analysis`, `ReportModel`, `CardModel`, all four tool inputs/outputs from ARCHITECTURE §5.1, the tool error codes, and `plans.ts` (`free`, `pro` with placeholder limits).
+- Given `packages/shared`, then it exports zod schemas and TS types for: `PropertyFacts`, `Assumptions`, `ResolvedAssumption` (with `source: provided | listing | lookup | assumed`), `Provenance`, `Resolved<T>`, `RentListing`, `SaleListing`, `Comp` (with `matchReason`, `matchClass: same-building | same-size | different-size`), `CompResult`, `School`, `Evaluation` (a zod mirror of the engine's output types; S01 adds a compile-time equivalence check against the engine), `Analysis`, `ReportModel`, `CardModel`, all four tool inputs/outputs from ARCHITECTURE §5.1, the tool error codes, and `plans.ts` (`free`, `pro` with placeholder limits).
 - Given `packages/data`, then it declares the provider interfaces from §10.1 (no implementations yet).
 - Given `firestore.rules`, then it denies all client reads and writes, with a rules unit test against the emulator.
 - Given `pnpm dev`, then the Firestore and Storage emulators start and `apps/server` serves `GET /health` returning `{ ok: true, engineVersion }`.
@@ -99,7 +99,7 @@ After S00 is accepted, tracks **A (engine, comps), B (data)** run in parallel. S
 
 **Out of scope:** any business logic, provider code, tool handlers, report rendering.
 
-**Outcome:** _(filled in when merged)_
+**Outcome:** Done. pnpm 12 workspace with `packages/{shared,engine,comps,data,report}` and `apps/{server,pdf-worker,widget}`; the last three and `comps`/`report`/`engine` are placeholders until their stories. `packages/shared` exports zod schemas for every contract listed above plus the four tool inputs/outputs, `TOOL_ERROR_CODES`, placeholder `PLANS`, and sample fixtures (9 round-trip and validation tests). `packages/data` declares the provider interfaces with a typed `ProviderFailure`. `apps/server` serves `GET /health` (Hono). `firestore.rules` and `storage.rules` deny all client access, proven by 3 emulator tests (`pnpm test:emulator`, Java 21 via `scripts/with-java.sh`). CI runs lint, typecheck, test, and emulator tests. 20 legacy engine tests still pass from `test/`. Deviations: `pnpm build` is `tsc --noEmit` for now (no bundling needed until S09/S15); the legacy root `tsconfig.json` turns off `noUncheckedIndexedAccess` until S01 moves the engine under the strict base config; `Evaluation` is a mirror schema rather than a re-export (the engine is not yet a package).
 
 ---
 
@@ -112,7 +112,7 @@ After S00 is accepted, tracks **A (engine, comps), B (data)** run in parallel. S
 **Product refs:** E2.1, E2.4, E2.6, E3.1, E3.2, E3.4, E3.5, E3.6
 
 **Acceptance criteria**
-- Given the existing engine, when moved to `packages/engine`, then all 20 existing tests pass unchanged (only import paths change) and the public API in ARCHITECTURE §8 is exported from the package root.
+- Given the existing engine, when moved to `packages/engine`, then all 20 existing tests pass unchanged (only import paths change), the public API in ARCHITECTURE §8 is exported from the package root, the legacy `src/calc`, `test/`, and root `tsconfig.json` override are removed, and a compile-time check proves the engine's `Evaluation` type is mutually assignable with `EvaluationSchema` in `packages/shared` (including `grossRentMultiplier: number | null`, never `Infinity`).
 - Given `ENGINE_VERSION` (semver), then it is exported and covered by a test that fails if formulas change without a version bump (a golden-output snapshot of three reference deals).
 - Given a purchase in a state that reassesses property tax on sale (at minimum CA, and the states listed in the story's table file `property-tax-reassessment.ts`, each with a source comment), when the user does not supply property tax, then tax defaults to the state's rate × **purchase price**, and the assumption record says why. Other states use the previous default.
 - Given `evals/golden/`, then it holds at least five hand-verified cases (all-cash, leveraged, negative cash flow, high rate, 15-year loan) plus a standalone script that recomputes them independently and a test that compares.
