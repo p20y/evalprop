@@ -12,7 +12,8 @@
     "test:emulator": "bash scripts/emulator-test.sh",
     "typecheck": "pnpm -r --if-present typecheck",
     "lint": "eslint .",
-    "build": "pnpm -r --if-present build"
+    "build": "pnpm -r --if-present build",
+    "eval:invocation": "node evals/invocation/run.ts"
   },
   "devDependencies": {
     "@firebase/rules-unit-testing": "^5.0.2",

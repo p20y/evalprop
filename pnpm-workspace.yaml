@@ -1,6 +1,7 @@
 packages:
   - "packages/*"
   - "apps/*"
+  - "evals"
 
 # Dependency install scripts (pnpm blocks them by default). @firebase/util (optional auto-init
 # config), protobufjs (version check), and re2 (optional native regex engine pulled in by
