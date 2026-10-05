@@ -191,7 +191,8 @@ footer.disclaimer p{margin:0 0 8px}
   @page{margin:12mm}
   body{background:#fff;font-size:11.5px}
   .wrap{max-width:none;padding:0}
-  section.card,.verdict,.kpi,.callout{break-inside:avoid;box-shadow:none}
+  .verdict,.kpi,.callout,.chart,.heat-wrap,.checks li,.works li,.flags li,.dnotes li,.summary-list li,.bars,.rt tr{break-inside:avoid;box-shadow:none}
+  section.card{break-inside:auto}
   section.card{border-color:#c9c8c2}
   .toc,.tooltip{display:none}
   .chart.narrow{display:none!important}.chart.wide{display:block!important}
