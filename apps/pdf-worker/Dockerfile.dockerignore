@@ -1,0 +1,20 @@
+# Used by `docker build -f apps/pdf-worker/Dockerfile .` (BuildKit reads <Dockerfile>.dockerignore).
+**/node_modules
+**/out
+**/dist
+.git
+.github
+.claude
+.env
+.env.*
+!.env.example
+reference
+docs
+evals/report-fixtures/screenshots
+tests
+**/*.test.ts
+**/*.emulator.test.ts
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+.DS_Store

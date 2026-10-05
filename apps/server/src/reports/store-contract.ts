@@ -84,6 +84,26 @@ export function runReportStoreContract(name: string, makeStore: () => ReportStor
     assert.deepEqual(await store.list(uid()), []);
   });
 
+  test(`${name}: getById finds a report by id and returns null for an unknown or malformed id`, async () => {
+    const store = await makeStore();
+    const r = await store.create(draft(uid()));
+    assert.deepEqual(await store.getById(r.id), r);
+    assert.equal(await store.getById("rpt_missing"), null);
+    assert.equal(await store.getById("a/b"), null);
+    assert.equal(await store.getById(""), null);
+  });
+
+  test(`${name}: setPdfPath records the path, is idempotent, and is false for a missing report`, async () => {
+    const store = await makeStore();
+    const r = await store.create(draft(uid()));
+    assert.equal(await store.setPdfPath(r.id, `reports/${r.id}.pdf`), true);
+    assert.equal(await store.setPdfPath(r.id, `reports/${r.id}.pdf`), true);
+    assert.equal((await store.getById(r.id))?.pdfPath, `reports/${r.id}.pdf`);
+    assert.equal((await store.getByTokenHash(r.tokenHash))?.pdfPath, `reports/${r.id}.pdf`);
+    assert.equal(await store.setPdfPath("rpt_missing", "reports/x.pdf"), false);
+    assert.equal(await store.getById("rpt_missing"), null, "setPdfPath never creates a report");
+  });
+
   test(`${name}: only the token hash is stored, never the token`, async () => {
     const store = await makeStore();
     const owner = uid();

@@ -20,6 +20,18 @@ export class InMemoryReportStore implements ReportStore {
     return null;
   }
 
+  async getById(reportId: string): Promise<ReportRecord | null> {
+    const r = this.#byId.get(reportId);
+    return r ? structuredClone(r) : null;
+  }
+
+  async setPdfPath(reportId: string, pdfPath: string): Promise<boolean> {
+    const r = this.#byId.get(reportId);
+    if (!r) return false;
+    r.pdfPath = pdfPath;
+    return true;
+  }
+
   async revoke(reportId: string, ownerUid: string, at: string): Promise<boolean> {
     const r = this.#byId.get(reportId);
     if (!r || r.ownerUid !== ownerUid) return false;

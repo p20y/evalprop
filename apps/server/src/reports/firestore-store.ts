@@ -27,6 +27,25 @@ export class FirestoreReportStore implements ReportStore {
     return doc ? this.#parse(doc.id, doc.data()) : null;
   }
 
+  async getById(reportId: string): Promise<ReportRecord | null> {
+    if (!isDocId(reportId)) return null;
+    const snap = await this.#db.collection(REPORTS_COLLECTION).doc(reportId).get();
+    const data = snap.data();
+    return snap.exists && data ? this.#parse(snap.id, data) : null;
+  }
+
+  async setPdfPath(reportId: string, pdfPath: string): Promise<boolean> {
+    if (!isDocId(reportId)) return false;
+    try {
+      // `update` fails with NOT_FOUND (code 5) when the document does not exist, and never creates one.
+      await this.#db.collection(REPORTS_COLLECTION).doc(reportId).update({ pdfPath });
+      return true;
+    } catch (err) {
+      if ((err as { code?: unknown }).code === 5) return false;
+      throw err;
+    }
+  }
+
   async revoke(reportId: string, ownerUid: string, at: string): Promise<boolean> {
     const ref = this.#db.collection(REPORTS_COLLECTION).doc(reportId);
     return this.#db.runTransaction(async (tx) => {
@@ -50,6 +69,11 @@ export class FirestoreReportStore implements ReportStore {
     // Reads from Firestore are validated like any other boundary crossing.
     return ReportRecordSchema.parse({ ...data, id });
   }
+}
+
+/** Firestore document ids cannot be empty or contain "/", and "." / ".." are reserved. */
+function isDocId(id: string): boolean {
+  return id.length > 0 && id.length <= 1500 && !id.includes("/") && id !== "." && id !== "..";
 }
 
 function stripUndefined<T extends Record<string, unknown>>(o: T): T {

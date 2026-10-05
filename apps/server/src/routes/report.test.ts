@@ -147,6 +147,8 @@ test("store failures return a generic 500 that leaks neither the token nor the e
   const broken: ReportStore = {
     create: async () => { throw new Error("boom"); },
     getByTokenHash: async () => { throw new Error("connection string secret-xyz"); },
+    getById: async () => null,
+    setPdfPath: async () => false,
     revoke: async () => false,
     list: async () => [],
   };
