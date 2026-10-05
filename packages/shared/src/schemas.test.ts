@@ -112,3 +112,12 @@ test("plans define free and pro", () => {
   assert.equal(PLANS.pro.watermark, false);
   assert.ok(PLANS.pro.monthlyAnalyses > PLANS.free.monthlyAnalyses);
 });
+
+test("evaluation keeps assumption notes and the list price comparison through parsing", () => {
+  const withExtras = {
+    ...sampleAnalysis.evaluation,
+    assumptions: [{ field: "propertyTaxAnnual", value: 4000, source: "assumed", note: "State reassesses on sale." }],
+    listPriceComparison: { listPrice: 239000, purchasePrice: 215000, discountAmount: 24000, discountPct: 10.04 },
+  };
+  roundTrip(EvaluationSchema, withExtras);
+});

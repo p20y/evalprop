@@ -80,7 +80,22 @@ export const EvaluationSchema = z.object({
   yearOne: YearOneMetricsSchema,
   hold: HoldAnalysisSchema,
   assumptions: z.array(
-    z.object({ field: z.string(), value: z.number(), source: z.enum(["provided", "assumed"]) }),
+    z.object({
+      field: z.string(),
+      value: z.number(),
+      source: z.enum(["provided", "assumed"]),
+      /** Why this value was chosen, e.g. a state property-tax reassessment default. */
+      note: z.string().optional(),
+    }),
   ),
+  /** Present when both a list price and a different analyzed (offer) price were supplied. */
+  listPriceComparison: z
+    .object({
+      listPrice: z.number(),
+      purchasePrice: z.number(),
+      discountAmount: z.number(),
+      discountPct: z.number(),
+    })
+    .optional(),
 });
 export type Evaluation = z.infer<typeof EvaluationSchema>;

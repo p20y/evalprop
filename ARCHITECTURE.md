@@ -135,7 +135,7 @@ evalprop/
 └─ .github/workflows/ci.yml
 ```
 
-Today the repo has the calculation engine and its tests at `src/calc/` and `test/calc.test.ts`. S00 creates the skeleton and S01 moves them into `packages/engine`.
+The calculation engine and its tests live in `packages/engine` (S01); the golden cases it is checked against are in `evals/golden/`.
 
 ---
 
@@ -315,7 +315,7 @@ Min instances = 1, CPU boost on, provider calls in parallel, aggressive caching.
 
 ## 8. Calculation engine (`packages/engine`)
 
-Pure TypeScript, no I/O, no dependencies, **already implemented and tested** (20 tests at the time of writing). Public API:
+Pure TypeScript, no I/O, no dependencies, **implemented and tested** (hand-verified golden cases, property tests, a version guard). Public API:
 
 - `evaluate(input: PropertyInput) → Evaluation`: year-one metrics (NOI, cap rate, cash-on-cash, DSCR, GRM, 1% rule, 50% rule, break-even occupancy), a month-by-month hold simulation rolled into year rows (cash payback month, total break-even month including sale proceeds, equity, profit if sold, IRR and equity multiple at 5/10/20/hold years), a verdict, the checks behind it, and the full assumption list with `provided`/`assumed` sources.
 - `maxPriceForCashOnCash(input, targetPct)`: bisection on price.
