@@ -196,6 +196,12 @@ importers:
 
   apps/server:
     dependencies:
+      '@evalprop/comps':
+        specifier: workspace:*
+        version: link:../../packages/comps
+      '@evalprop/data':
+        specifier: workspace:*
+        version: link:../../packages/data
       '@evalprop/engine':
         specifier: workspace:*
         version: link:../../packages/engine
@@ -205,6 +211,9 @@ importers:
       '@hono/node-server':
         specifier: ^2.1.3
         version: 2.1.3(hono@4.13.13)
+      firebase-admin:
+        specifier: ^14.5.0
+        version: 14.5.0(@firebase/app-compat@0.5.18)(@firebase/app@0.16.2)(supports-color@7.2.0)
       hono:
         specifier: ^4.13.13
         version: 4.13.13
