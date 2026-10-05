@@ -11,6 +11,7 @@ import {
 } from "@evalprop/shared";
 import { runAnalysis, runWhatIf, type PipelineContext } from "../pipeline/index.ts";
 import { INTERNAL_ERROR, toolErrorResult } from "./results.ts";
+import { widgetToolMeta } from "./widget-registration.ts";
 
 /**
  * The tool registry (ARCHITECTURE §5.1). One entry per tool: name, description and schemas come from
@@ -38,6 +39,8 @@ export interface ToolDefinition {
   /** Advertised in `tools/list`, and every successful result is checked against it before it is returned. */
   outputSchema: z.ZodType;
   annotations: ToolAnnotations;
+  /** Descriptor `_meta` advertised in `tools/list`: the link to the inline card template (S09). Clients that ignore it still get the text and `structuredContent`. */
+  meta?: Record<string, unknown>;
   handler: (args: unknown, ctx: ToolContext) => Promise<CallToolResult>;
 }
 
@@ -83,6 +86,7 @@ const analyzeProperty: ToolDefinition = {
   description: TOOL_DESCRIPTIONS.analyze_property,
   inputSchema: AnalyzePropertyInputSchema,
   outputSchema: AnalyzePropertyOutputSchema,
+  meta: widgetToolMeta({ invoking: "Analyzing the property", invoked: "Analysis ready" }),
   annotations: {
     title: "Analyze a rental property",
     // Saves an analysis (and a usage record), never changes or deletes anything that exists, and a retry
@@ -111,6 +115,7 @@ const whatIf: ToolDefinition = {
   description: TOOL_DESCRIPTIONS.what_if,
   inputSchema: WhatIfInputSchema,
   outputSchema: WhatIfOutputSchema,
+  meta: widgetToolMeta({ invoking: "Re-running with new assumptions", invoked: "Updated analysis ready" }),
   annotations: {
     title: "Re-run an analysis with different assumptions",
     readOnlyHint: false,

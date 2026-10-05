@@ -35,6 +35,8 @@ export interface McpHandlerDeps {
    * throws, the error is logged and the placeholder link stays (the analysis itself is never lost).
    */
   createReportLink?: (uid: string, analysisId: string) => Promise<string>;
+  /** Dedicated origin for the inline widget (`_meta.ui.domain`); see `WidgetRegistrationOptions`. Unset by default. */
+  widgetDomain?: string;
   /** The tool registry. Default: `analyze_property` and `what_if`. */
   tools?: readonly ToolDefinition[];
   /** Structured log sink. Default: one JSON line on stderr. Never receives tokens or request bodies. */
@@ -125,6 +127,9 @@ export function buildMcpHandler(deps: McpHandlerDeps): McpHandler {
       pipeline,
       log,
       ...(createLink !== undefined ? { createReportLink: (analysisId: string) => createLink(uid, analysisId) } : {}),
+    }, {
+      baseUrl,
+      ...(deps.widgetDomain !== undefined ? { widgetDomain: deps.widgetDomain } : {}),
     });
     const transport = new WebStandardStreamableHTTPServerTransport({ enableJsonResponse: true });
     try {

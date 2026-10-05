@@ -19,6 +19,7 @@
     "@evalprop/engine": "workspace:*",
     "@evalprop/report": "workspace:*",
     "@evalprop/shared": "workspace:*",
+    "@evalprop/widget": "workspace:*",
     "@google-cloud/storage": "^7.22.0",
     "@google-cloud/tasks": "^7.2.1",
     "@hono/node-server": "^2.1.3",
