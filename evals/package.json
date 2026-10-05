@@ -1,0 +1,16 @@
+{
+  "name": "@evalprop/evals",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test \"invocation/**/*.test.ts\"",
+    "typecheck": "tsc --noEmit -p .",
+    "build": "tsc --noEmit -p .",
+    "eval:invocation": "node invocation/run.ts"
+  },
+  "dependencies": {
+    "@evalprop/shared": "workspace:*",
+    "zod": "^4.6.5"
+  }
+}

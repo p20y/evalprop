@@ -270,6 +270,15 @@ importers:
         specifier: workspace:*
         version: link:../../packages/shared
 
+  evals:
+    dependencies:
+      '@evalprop/shared':
+        specifier: workspace:*
+        version: link:../packages/shared
+      zod:
+        specifier: ^4.6.5
+        version: 4.6.5
+
   packages/comps:
     dependencies:
       '@evalprop/shared':
