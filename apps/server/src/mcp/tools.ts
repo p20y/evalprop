@@ -7,6 +7,7 @@ import {
   WhatIfInputSchema,
   WhatIfOutputSchema,
   type Analysis,
+  type CardModel,
 } from "@evalprop/shared";
 import { runAnalysis, runWhatIf, type PipelineContext } from "../pipeline/index.ts";
 import { INTERNAL_ERROR, toolErrorResult } from "./results.ts";
@@ -25,6 +26,8 @@ export interface ToolContext {
   uid: string;
   pipeline: PipelineContext;
   log: McpLogger;
+  /** Mints a share link for an analysis of this caller (see `McpHandlerDeps.createReportLink`). */
+  createReportLink?: (analysisId: string) => Promise<string>;
 }
 
 export interface ToolDefinition {
@@ -64,6 +67,17 @@ function successResult(
   };
 }
 
+/** The card with its `reportUrl` replaced by a real share link. A failure keeps the placeholder and is logged. */
+async function withReportLink(card: CardModel, analysisId: string, ctx: ToolContext): Promise<CardModel> {
+  if (ctx.createReportLink === undefined) return card;
+  try {
+    return { ...card, reportUrl: await ctx.createReportLink(analysisId) };
+  } catch (err) {
+    ctx.log("mcp.report_link_failed", { analysisId, error: err instanceof Error ? err.name : "unknown" });
+    return card;
+  }
+}
+
 const analyzeProperty: ToolDefinition = {
   name: "analyze_property",
   description: TOOL_DESCRIPTIONS.analyze_property,
@@ -83,7 +97,7 @@ const analyzeProperty: ToolDefinition = {
     if (!outcome.ok) return toolErrorResult(outcome.error, outcome);
     return successResult(
       AnalyzePropertyOutputSchema,
-      { card: outcome.card, summary: outcome.summary },
+      { card: await withReportLink(outcome.card, outcome.analysis.id, ctx), summary: outcome.summary },
       outcome.summary,
       outcome.analysis,
       outcome.reused,
@@ -110,7 +124,12 @@ const whatIf: ToolDefinition = {
     if (!outcome.ok) return toolErrorResult(outcome.error, outcome);
     return successResult(
       WhatIfOutputSchema,
-      { baseAnalysisId: outcome.baseAnalysisId, card: outcome.card, rows: outcome.rows, summary: outcome.summary },
+      {
+        baseAnalysisId: outcome.baseAnalysisId,
+        card: await withReportLink(outcome.card, outcome.analysis.id, ctx),
+        rows: outcome.rows,
+        summary: outcome.summary,
+      },
       outcome.summary,
       outcome.analysis,
       outcome.reused,
