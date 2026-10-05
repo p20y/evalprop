@@ -1,0 +1,308 @@
+{
+  "id": "suburban-house",
+  "description": "3 bed / 2 bath single-family house in a suburb; plenty of same-size comps inside 1 mile.",
+  "recordedAt": "2026-09-21T10:30:00.000Z",
+  "confidence": "high",
+  "addresses": [
+    "2415 Maple Test Dr, Sampleton, OH 43017",
+    "2415 maple test dr sampleton oh"
+  ],
+  "property": {
+    "facts": {
+      "formattedAddress": "2415 Maple Test Dr, Sampleton, OH 43017",
+      "line1": "2415 Maple Test Dr",
+      "city": "Sampleton",
+      "state": "OH",
+      "zip": "43017",
+      "latitude": 40.09921,
+      "longitude": -83.11414,
+      "propertyType": "single_family",
+      "beds": 3,
+      "baths": 2,
+      "sqft": 1850,
+      "lotSqft": 8400,
+      "yearBuilt": 1996,
+      "listPrice": 349000,
+      "daysOnMarket": 12,
+      "taxesAnnual": 5480,
+      "description": "Updated kitchen, fenced yard, two-car garage. Fictional listing text used for fixtures only."
+    }
+  },
+  "rent": {
+    "candidates": [
+      {
+        "id": "fx-h-01",
+        "address": "2431 Maple Test Dr, Sampleton, OH 43017",
+        "distanceMiles": 0.05,
+        "propertyType": "single_family",
+        "beds": 3,
+        "baths": 2,
+        "sqft": 1820,
+        "rent": 2150,
+        "kind": "leased",
+        "date": "2026-08-12"
+      },
+      {
+        "id": "fx-h-02",
+        "address": "2388 Birch Fixture Ct, Sampleton, OH 43017",
+        "distanceMiles": 0.18,
+        "propertyType": "single_family",
+        "beds": 3,
+        "baths": 2,
+        "sqft": 1900,
+        "rent": 2250,
+        "kind": "asking",
+        "date": "2026-09-06"
+      },
+      {
+        "id": "fx-h-03",
+        "address": "17 Elm Sample Way, Sampleton, OH 43017",
+        "distanceMiles": 0.27,
+        "propertyType": "single_family",
+        "beds": 3,
+        "baths": 2.5,
+        "sqft": 1780,
+        "rent": 2175,
+        "kind": "asking",
+        "date": "2026-09-14"
+      },
+      {
+        "id": "fx-h-04",
+        "address": "2502 Oak Mock Ln, Sampleton, OH 43017",
+        "distanceMiles": 0.33,
+        "propertyType": "single_family",
+        "beds": 3,
+        "baths": 2,
+        "sqft": 1950,
+        "rent": 2300,
+        "kind": "leased",
+        "date": "2026-07-25"
+      },
+      {
+        "id": "fx-h-05",
+        "address": "905 Cedar Test Rd, Sampleton, OH 43017",
+        "distanceMiles": 0.62,
+        "propertyType": "single_family",
+        "beds": 3,
+        "baths": 2,
+        "sqft": 1710,
+        "rent": 2050,
+        "kind": "asking",
+        "date": "2026-09-02"
+      },
+      {
+        "id": "fx-h-06",
+        "address": "61 Willow Example Dr, Sampleton, OH 43017",
+        "distanceMiles": 0.77,
+        "propertyType": "single_family",
+        "beds": 3,
+        "baths": 2,
+        "sqft": 1880,
+        "rent": 2225,
+        "kind": "asking",
+        "date": "2026-08-29"
+      },
+      {
+        "id": "fx-h-07",
+        "address": "1180 Pine Fixture Ave, Sampleton, OH 43017",
+        "distanceMiles": 1.1,
+        "propertyType": "townhouse",
+        "beds": 3,
+        "baths": 2.5,
+        "sqft": 1600,
+        "rent": 1975,
+        "kind": "asking",
+        "date": "2026-09-10"
+      },
+      {
+        "id": "fx-h-08",
+        "address": "34 Aspen Placeholder St, Sampleton, OH 43017",
+        "distanceMiles": 1.35,
+        "propertyType": "single_family",
+        "beds": 4,
+        "baths": 2.5,
+        "sqft": 2300,
+        "rent": 2650,
+        "kind": "asking",
+        "date": "2026-09-12"
+      },
+      {
+        "id": "fx-h-09",
+        "address": "720 Spruce Mock Blvd, Sampleton, OH 43017",
+        "distanceMiles": 1.6,
+        "propertyType": "single_family",
+        "beds": 2,
+        "baths": 1,
+        "sqft": 1150,
+        "rent": 1650,
+        "kind": "leased",
+        "date": "2026-06-30"
+      },
+      {
+        "id": "fx-h-10",
+        "address": "3300 Ash Sample Pkwy, Sampleton, OH 43017",
+        "distanceMiles": 1.9,
+        "propertyType": "single_family",
+        "beds": 3,
+        "baths": 2,
+        "sqft": 1840,
+        "rent": 2100,
+        "kind": "asking",
+        "date": "2026-09-05"
+      }
+    ],
+    "estimate": {
+      "monthlyRent": 2200,
+      "low": 2020,
+      "high": 2380
+    }
+  },
+  "sales": [
+    {
+      "id": "fx-hs-01",
+      "address": "2431 Maple Test Dr, Sampleton, OH 43017",
+      "distanceMiles": 0.05,
+      "propertyType": "single_family",
+      "beds": 3,
+      "baths": 2,
+      "sqft": 1820,
+      "price": 339000,
+      "status": "sold",
+      "date": "2026-06-12"
+    },
+    {
+      "id": "fx-hs-02",
+      "address": "2388 Birch Fixture Ct, Sampleton, OH 43017",
+      "distanceMiles": 0.18,
+      "propertyType": "single_family",
+      "beds": 3,
+      "baths": 2,
+      "sqft": 1900,
+      "price": 355000,
+      "status": "sold",
+      "date": "2026-08-03"
+    },
+    {
+      "id": "fx-hs-03",
+      "address": "2502 Oak Mock Ln, Sampleton, OH 43017",
+      "distanceMiles": 0.33,
+      "propertyType": "single_family",
+      "beds": 3,
+      "baths": 2,
+      "sqft": 1950,
+      "price": 362500,
+      "status": "active",
+      "date": "2026-09-08"
+    },
+    {
+      "id": "fx-hs-04",
+      "address": "905 Cedar Test Rd, Sampleton, OH 43017",
+      "distanceMiles": 0.62,
+      "propertyType": "single_family",
+      "beds": 3,
+      "baths": 2,
+      "sqft": 1710,
+      "price": 329000,
+      "status": "sold",
+      "date": "2026-07-17"
+    },
+    {
+      "id": "fx-hs-05",
+      "address": "61 Willow Example Dr, Sampleton, OH 43017",
+      "distanceMiles": 0.77,
+      "propertyType": "single_family",
+      "beds": 3,
+      "baths": 2,
+      "sqft": 1880,
+      "price": 351000,
+      "status": "pending",
+      "date": "2026-09-13"
+    },
+    {
+      "id": "fx-hs-06",
+      "address": "34 Aspen Placeholder St, Sampleton, OH 43017",
+      "distanceMiles": 1.35,
+      "propertyType": "single_family",
+      "beds": 4,
+      "baths": 2.5,
+      "sqft": 2300,
+      "price": 419000,
+      "status": "sold",
+      "date": "2026-05-21"
+    },
+    {
+      "id": "fx-hs-07",
+      "address": "720 Spruce Mock Blvd, Sampleton, OH 43017",
+      "distanceMiles": 1.6,
+      "propertyType": "single_family",
+      "beds": 2,
+      "baths": 1,
+      "sqft": 1150,
+      "price": 259000,
+      "status": "sold",
+      "date": "2026-04-09"
+    }
+  ],
+  "schools": {
+    "assigned": [
+      {
+        "name": "Maple Grove Elementary",
+        "level": "elementary",
+        "rating": 8,
+        "distanceMiles": 0.4,
+        "assigned": true,
+        "attribution": "Ratings: Fixture School Data (fictional)"
+      },
+      {
+        "name": "Sampleton Middle School",
+        "level": "middle",
+        "rating": 7,
+        "distanceMiles": 1.2,
+        "assigned": true,
+        "attribution": "Ratings: Fixture School Data (fictional)"
+      },
+      {
+        "name": "Sampleton High School",
+        "level": "high",
+        "rating": 8,
+        "distanceMiles": 2.4,
+        "assigned": true,
+        "attribution": "Ratings: Fixture School Data (fictional)"
+      }
+    ],
+    "nearby": [
+      {
+        "name": "Maple Grove Elementary",
+        "level": "elementary",
+        "rating": 8,
+        "distanceMiles": 0.4,
+        "assigned": true,
+        "attribution": "Ratings: Fixture School Data (fictional)"
+      },
+      {
+        "name": "Birch Fixture Elementary",
+        "level": "elementary",
+        "rating": 6,
+        "distanceMiles": 0.9,
+        "assigned": false,
+        "attribution": "Ratings: Fixture School Data (fictional)"
+      },
+      {
+        "name": "Sampleton Middle School",
+        "level": "middle",
+        "rating": 7,
+        "distanceMiles": 1.2,
+        "assigned": true,
+        "attribution": "Ratings: Fixture School Data (fictional)"
+      },
+      {
+        "name": "Sampleton High School",
+        "level": "high",
+        "rating": 8,
+        "distanceMiles": 2.4,
+        "assigned": true,
+        "attribution": "Ratings: Fixture School Data (fictional)"
+      }
+    ]
+  }
+}

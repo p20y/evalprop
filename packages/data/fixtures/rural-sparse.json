@@ -1,0 +1,87 @@
+{
+  "id": "rural-sparse",
+  "description": "2-acre rural house; the nearest rent and sale comps are many miles away, and there is no automated rent estimate.",
+  "recordedAt": "2026-09-18T08:15:00.000Z",
+  "confidence": "low",
+  "addresses": [
+    "88 County Road 12, Quietfield, MT 59999",
+    "88 county road 12 quietfield mt"
+  ],
+  "property": {
+    "facts": {
+      "formattedAddress": "88 County Road 12, Quietfield, MT 59999",
+      "line1": "88 County Road 12",
+      "city": "Quietfield",
+      "state": "MT",
+      "zip": "59999",
+      "latitude": 47.00112,
+      "longitude": -110.50234,
+      "propertyType": "single_family",
+      "beds": 3,
+      "baths": 1,
+      "sqft": 1200,
+      "lotSqft": 87120,
+      "yearBuilt": 1978,
+      "listPrice": 215000,
+      "daysOnMarket": 63,
+      "taxesAnnual": 1650,
+      "description": "Quiet 2-acre lot with a well and septic. Fictional listing text used for fixtures only."
+    }
+  },
+  "rent": {
+    "candidates": [
+      {
+        "id": "fx-r-01",
+        "address": "1402 Main St, Smallton, MT 59998",
+        "distanceMiles": 7.4,
+        "propertyType": "single_family",
+        "beds": 3,
+        "baths": 1,
+        "sqft": 1300,
+        "rent": 1450,
+        "kind": "asking",
+        "date": "2026-07-02"
+      },
+      {
+        "id": "fx-r-02",
+        "address": "20 Depot Rd, Smallton, MT 59998",
+        "distanceMiles": 11.9,
+        "propertyType": "single_family",
+        "beds": 2,
+        "baths": 1,
+        "sqft": 950,
+        "rent": 1100,
+        "kind": "leased",
+        "date": "2026-03-15"
+      }
+    ],
+    "estimate": null
+  },
+  "sales": [
+    {
+      "id": "fx-rs-01",
+      "address": "1550 Prairie Ln, Smallton, MT 59998",
+      "distanceMiles": 9.2,
+      "propertyType": "single_family",
+      "beds": 3,
+      "baths": 2,
+      "sqft": 1400,
+      "price": 238000,
+      "status": "sold",
+      "date": "2026-02-27"
+    }
+  ],
+  "schools": {
+    "assigned": [],
+    "nearby": [
+      {
+        "name": "Quietfield K-8",
+        "level": "other",
+        "rating": 4,
+        "distanceMiles": 6.1,
+        "assigned": "unknown",
+        "attribution": "Ratings: Fixture School Data (fictional)"
+      }
+    ]
+  }
+}

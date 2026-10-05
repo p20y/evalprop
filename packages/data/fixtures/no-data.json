@@ -1,0 +1,30 @@
+{
+  "id": "no-data",
+  "description": "Address resolves but the provider has no facts beyond location, and no comps, estimate, sales, or schools.",
+  "recordedAt": "2026-09-19T16:45:00.000Z",
+  "confidence": "low",
+  "addresses": [
+    "7 Placeholder Way, Emptyburg, NE 68001",
+    "7 placeholder way emptyburg ne"
+  ],
+  "property": {
+    "facts": {
+      "formattedAddress": "7 Placeholder Way, Emptyburg, NE 68001",
+      "line1": "7 Placeholder Way",
+      "city": "Emptyburg",
+      "state": "NE",
+      "zip": "68001",
+      "latitude": 41.50001,
+      "longitude": -99.50001
+    }
+  },
+  "rent": {
+    "candidates": [],
+    "estimate": null
+  },
+  "sales": [],
+  "schools": {
+    "assigned": [],
+    "nearby": []
+  }
+}
