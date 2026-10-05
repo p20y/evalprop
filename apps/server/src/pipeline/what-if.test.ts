@@ -210,17 +210,16 @@ describe("what_if: property tax when the offer price changes (states that reasse
     assert.deepEqual([field(next.analysis, "propertyTaxAnnual")?.source, field(next.analysis, "propertyTaxAnnual")?.value], ["provided", 7777]);
   });
 
-  test("a tax from the property record is the seller's bill: replaced by the reassessed estimate when the price changes, with a note", async () => {
+  test("in a reassessing state the tax follows the offer price (it was never the seller's figure)", async () => {
     const h = harness({ scenarios: [caTax] });
     const base = await h.analyze({ address: caTax.addresses[0] as string });
     assertOk(base);
-    assert.equal(field(base.analysis, "propertyTaxAnnual")?.source, "lookup");
+    assert.equal(field(base.analysis, "propertyTaxAnnual")?.source, "assumed");
     const next = await h.whatIf({ analysisId: base.analysis.id, overrides: { offerPrice: 300000 } });
     assertOk(next);
     const tax = field(next.analysis, "propertyTaxAnnual");
     assert.equal(tax?.source, "assumed");
     assert.equal(tax?.value, 3600); // 1.2% of 300,000
-    assert.ok(next.analysis.dataNotes.some((n) => n.section === "assumptions" && /replaced by the engine's estimate/.test(n.message)));
   });
 
   test("an explicit tax override in the same what-if wins over all of it", async () => {
@@ -241,12 +240,15 @@ describe("what_if: property tax when the offer price changes (states that reasse
     assert.deepEqual([field(next.analysis, "propertyTaxAnnual")?.source, field(next.analysis, "propertyTaxAnnual")?.value], ["lookup", 5480]);
   });
 
-  test("a rate-only what-if in a reassessing state leaves the recorded tax alone", async () => {
+  test("a rate-only what-if in a reassessing state leaves the tax unchanged", async () => {
     const h = harness({ scenarios: [caTax] });
     const base = await h.analyze({ address: caTax.addresses[0] as string });
     assertOk(base);
     const next = await h.whatIf({ analysisId: base.analysis.id, overrides: { interestRatePct: 6 } });
     assertOk(next);
-    assert.equal(field(next.analysis, "propertyTaxAnnual")?.source, "lookup");
+    assert.deepEqual(
+      [field(next.analysis, "propertyTaxAnnual")?.source, field(next.analysis, "propertyTaxAnnual")?.value],
+      [field(base.analysis, "propertyTaxAnnual")?.source, field(base.analysis, "propertyTaxAnnual")?.value],
+    );
   });
 });
