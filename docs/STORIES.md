@@ -539,8 +539,8 @@ After S00 is accepted, tracks **A (engine, comps), B (data)** run in parallel. S
 | F3 | Open questions 1–8 in ARCHITECTURE §15 (auth vendor, data provider, pricing, Muse docs, comp ladder order, rural radius, short-term rental, GCP ownership) | Design | open |
 | F4 | A draft report renderer was prototyped locally during design but is intentionally not part of the repo; S08 builds the report from the spec and approved mockups | Design | open |
 
-| F5 | `packages/shared` `EvaluationSchema` needs two optional additions to match the engine: `assumptions[].note` (string) and top-level `listPriceComparison` (`{ listPrice, purchasePrice, discountAmount, discountPct }`). Until then zod strips them on parse. Also consider reusing `ENGINE_VERSION` from the engine in `Analysis.engineVersion` | S01 | open |
+| F5 | ~~`EvaluationSchema` needed `assumptions[].note` and `listPriceComparison`~~ (added in the S01 follow-up PR). Still open: consider reusing `ENGINE_VERSION` from the engine in `Analysis.engineVersion` | S01 | done |
 | F6 | State property-tax reassessment table covers CA and FL only, with approximate rates; add MI, NM, SC and others once a source and rate are confirmed, and refresh on the F2 schedule | S01 | open |
-| F7 | `README.md` and `ARCHITECTURE.md` (§4, last paragraph) still say the engine lives in `src/calc/`; `ARCHITECTURE.md` §8 says "20 tests". Outside S01's May touch list; update in the next docs change | S01 | open |
+| F7 | ~~`README.md` and `ARCHITECTURE.md` still said the engine lives in `src/calc/`~~ | S01 | done (docs follow-up PR) |
 
 _Next free follow-up number: F8._
