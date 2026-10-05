@@ -40,6 +40,24 @@ The full design is in [ARCHITECTURE.md](ARCHITECTURE.md). The product definition
 | `apps/pdf-worker/` · `apps/widget/` | PDF renderer · inline chat card |
 | `docs/` | PRODUCT.md, STORIES.md (backlog), SETUP.md |
 
+## Try the MCP server locally
+
+`node apps/server/src/index.ts` starts the server on `http://localhost:8787` with fake auth, the recorded fixture provider and an in-memory repo (set `EVALPROP_REPO=firestore` with the emulator from `pnpm dev` to persist). The MCP endpoint is `POST /mcp` (Streamable HTTP, stateless); sign in with the bearer token `test-token-<anything>`, e.g. `test-token-dev`.
+
+```bash
+# MCP Inspector (UI): choose "Streamable HTTP", URL http://localhost:8787/mcp,
+# header Authorization: Bearer test-token-dev
+npx @modelcontextprotocol/inspector
+
+# or one JSON-RPC call (fixture addresses: "2415 Maple Test Dr, Sampleton, OH 43017",
+# "100 Sample Tower Ln Unit 4B, Testville, TX 78701")
+curl -s localhost:8787/mcp -H 'content-type: application/json' -H 'accept: application/json, text/event-stream' \
+  -H 'authorization: Bearer test-token-dev' \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"analyze_property","arguments":{"address":"2415 Maple Test Dr, Sampleton, OH 43017"}}}'
+```
+
+Without a token the endpoint answers `401` with `WWW-Authenticate: Bearer resource_metadata="…/.well-known/oauth-protected-resource"`.
+
 ## Working on it
 
 Read [AGENTS.md](AGENTS.md). One story at a time, one PR per story.
