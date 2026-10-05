@@ -3,3 +3,5 @@ export type { AnalysisReader, NewReport, ReportRecord, ReportStore } from "./typ
 export { InMemoryAnalysisReader, InMemoryReportStore } from "./memory-store.ts";
 export { FirestoreReportStore, REPORTS_COLLECTION } from "./firestore-store.ts";
 export { hashToken, isWellFormedToken, newId, newToken } from "./token.ts";
+export { DEFAULT_PDF_URL_TTL_SECONDS, FakeSignedUrlProvider, GcsSignedUrlProvider } from "./signed-url.ts";
+export type { SignableBucket, SignedUrlProvider } from "./signed-url.ts";

@@ -39,6 +39,13 @@ export interface ReportStore {
    * does not exist or belongs to someone else, without saying which.
    */
   revoke(reportId: string, ownerUid: string, at: string): Promise<boolean>;
+  /**
+   * Looks a report up by id, with no owner check. For trusted server-side jobs only (the PDF worker): the
+   * caller already holds a report id that the server itself issued. Never expose it to a request.
+   */
+  getById(reportId: string): Promise<ReportRecord | null>;
+  /** Records where the rendered PDF is stored. False when the report does not exist. Idempotent. */
+  setPdfPath(reportId: string, pdfPath: string): Promise<boolean>;
   /** The owner's reports, newest first, optionally only those for one analysis. */
   list(ownerUid: string, filter?: { analysisId?: string }): Promise<ReportRecord[]>;
 }

@@ -2,6 +2,7 @@ import { renderReport, REPORT_CONTENT_SECURITY_POLICY, REPORT_RENDERER_VERSION }
 import type { ReportModel } from "@evalprop/shared";
 import { Hono, type Context } from "hono";
 import { hashToken, isWellFormedToken } from "../reports/token.ts";
+import { DEFAULT_PDF_URL_TTL_SECONDS, type SignedUrlProvider } from "../reports/signed-url.ts";
 import type { AnalysisReader, ReportRecord, ReportStore } from "../reports/types.ts";
 
 export interface ReportRouteDeps {
@@ -11,7 +12,14 @@ export interface ReportRouteDeps {
   now?: () => Date;
   /** Replaceable renderer, mainly for tests. */
   render?: (model: ReportModel) => string;
+  /** Signs links to stored PDFs for `GET /r/:token/pdf`. Without it the PDF route answers 404. */
+  signedUrls?: SignedUrlProvider;
+  /** Lifetime of a signed PDF link. Default 600 s. */
+  pdfUrlTtlSeconds?: number;
 }
+
+/** How long a "PDF is being prepared" page asks the browser to wait before trying again. */
+export const PDF_RETRY_AFTER_SECONDS = 15;
 
 /**
  * How long a browser or proxy may reuse a report page without asking again. Short on purpose: a revoked or
@@ -56,18 +64,26 @@ export function reportRoutes(deps: ReportRouteDeps): Hono {
   };
   const notFound = (c: Context) => fail(c, 404, "Report not found", "This link is not valid. Ask the sender for a new one.");
 
-  app.get("/r/:token", async (c) => {
-    const token = c.req.param("token");
+  /**
+   * The token checks shared by the page and its PDF: a record, or the 404/410 response to send instead.
+   * Same hashing, same status codes, so the two routes can never disagree about whether a link works.
+   */
+  const liveRecord = async (c: Context): Promise<ReportRecord | Response> => {
+    const token = c.req.param("token") ?? "";
     if (!isWellFormedToken(token)) return notFound(c);
+    const record = await deps.reports.getByTokenHash(hashToken(token));
+    if (!record) return notFound(c);
+    if (record.revokedAt !== undefined) return fail(c, 410, "This report is no longer shared", "The sender has turned off this link.");
+    if (record.expiresAt !== undefined && Date.parse(record.expiresAt) <= now().getTime()) {
+      return fail(c, 410, "This link has expired", "Ask the sender for a new link.");
+    }
+    return record;
+  };
 
+  app.get("/r/:token", async (c) => {
     try {
-      const record = await deps.reports.getByTokenHash(hashToken(token));
-      if (!record) return notFound(c);
-
-      if (record.revokedAt !== undefined) return fail(c, 410, "This report is no longer shared", "The sender has turned off this link.");
-      if (record.expiresAt !== undefined && Date.parse(record.expiresAt) <= now().getTime()) {
-        return fail(c, 410, "This link has expired", "Ask the sender for a new link.");
-      }
+      const record = await liveRecord(c);
+      if (record instanceof Response) return record;
 
       const etag = etagFor(record);
       const headers = { ...SECURITY_HEADERS, "Cache-Control": REPORT_CACHE_CONTROL, ETag: etag };
@@ -85,5 +101,36 @@ export function reportRoutes(deps: ReportRouteDeps): Hono {
     }
   });
 
+  /**
+   * `GET /r/:token/pdf` (ARCHITECTURE section 6.1). Checks the token exactly like the page, then:
+   * - the PDF is stored: 302 to a signed URL that works for a few minutes. The bucket path never appears in a
+   *   response body or log line.
+   * - not rendered yet (or the worker failed and Cloud Tasks is retrying): 202 with a small "preparing" page.
+   *   The web report is unaffected either way.
+   */
+  app.get("/r/:token/pdf", async (c) => {
+    try {
+      const record = await liveRecord(c);
+      if (record instanceof Response) return record;
+      if (!deps.signedUrls) return fail(c, 404, "PDF not available", "A PDF is not available for this report.");
+
+      if (record.pdfPath === undefined) {
+        const headers = { ...SECURITY_HEADERS, "Cache-Control": "no-store", "Retry-After": String(PDF_RETRY_AFTER_SECONDS), "Content-Type": "text/html; charset=UTF-8" };
+        return new Response(preparingPage(), { status: 202, headers });
+      }
+
+      const url = await deps.signedUrls.sign(record.pdfPath, { expiresInSeconds: deps.pdfUrlTtlSeconds ?? DEFAULT_PDF_URL_TTL_SECONDS });
+      return new Response(null, { status: 302, headers: { ...SECURITY_HEADERS, "Cache-Control": "no-store", Location: url } });
+    } catch {
+      return fail(c, 500, "Something went wrong", "Please try again in a moment.");
+    }
+  });
+
   return app;
 }
+
+const preparingPage = () =>
+  errorPage("Your PDF is being prepared", "Refresh in a moment. This page checks again by itself.").replace(
+    '<meta name="robots"',
+    `<meta http-equiv="refresh" content="${PDF_RETRY_AFTER_SECONDS}"><meta name="robots"`,
+  );

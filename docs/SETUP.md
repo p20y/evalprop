@@ -52,6 +52,54 @@ Rules for us regardless of provider:
 
 _(filled in by S15: one-time `gcloud` commands, secrets to create, CI deploy service account, budget alert and kill-switch.)_
 
+### PDF export (S10; applied during S15)
+
+The PDF path has three parts: a Cloud Tasks queue, the `evalprop-pdf-worker` Cloud Run service, and a private Cloud Storage bucket. Nothing below has been run; S15 owns deployment. Names are provisional.
+
+```bash
+# Private bucket for PDFs: uniform access, no public access, objects are only reachable through signed URLs.
+gcloud storage buckets create gs://evalprop-dev-pdfs --location=us-central1 \
+  --uniform-bucket-level-access --public-access-prevention
+
+# Queue. Retries with exponential backoff: 5 attempts, 10 s doubling to 5 min, give up after 1 h.
+# One report renders at a time per instance (the worker runs at concurrency 1), so keep dispatch modest.
+gcloud tasks queues create pdf-render --location=us-central1 \
+  --max-attempts=5 --min-backoff=10s --max-backoff=300s --max-doublings=4 --max-retry-duration=3600s \
+  --max-dispatches-per-second=5 --max-concurrent-dispatches=10
+
+# Service accounts: the server enqueues (and signs URLs); Cloud Tasks calls the worker as the invoker account.
+gcloud iam service-accounts create pdf-invoker
+gcloud run services add-iam-policy-binding evalprop-pdf-worker --region=us-central1 \
+  --member=serviceAccount:pdf-invoker@PROJECT.iam.gserviceaccount.com --role=roles/run.invoker
+gcloud tasks queues add-iam-policy-binding pdf-render --location=us-central1 \
+  --member=serviceAccount:SERVER_SA@PROJECT.iam.gserviceaccount.com --role=roles/cloudtasks.enqueuer
+# The server must be allowed to create tasks that run as pdf-invoker:
+gcloud iam service-accounts add-iam-policy-binding pdf-invoker@PROJECT.iam.gserviceaccount.com \
+  --member=serviceAccount:SERVER_SA@PROJECT.iam.gserviceaccount.com --role=roles/iam.serviceAccountUser
+# The worker writes PDFs; the server only reads (signs). V4 signing on Cloud Run goes through the IAM Credentials API, so the
+# server's account must be able to sign as itself:
+gcloud storage buckets add-iam-policy-binding gs://evalprop-dev-pdfs \
+  --member=serviceAccount:WORKER_SA@PROJECT.iam.gserviceaccount.com --role=roles/storage.objectAdmin
+gcloud storage buckets add-iam-policy-binding gs://evalprop-dev-pdfs \
+  --member=serviceAccount:SERVER_SA@PROJECT.iam.gserviceaccount.com --role=roles/storage.objectViewer
+gcloud iam service-accounts add-iam-policy-binding SERVER_SA@PROJECT.iam.gserviceaccount.com \
+  --member=serviceAccount:SERVER_SA@PROJECT.iam.gserviceaccount.com --role=roles/iam.serviceAccountTokenCreator
+```
+
+Worker service (`apps/pdf-worker/Dockerfile`, built from the repository root): no unauthenticated access, concurrency 1, min instances 0, at least 1 GiB memory (2 GiB is safer), request timeout 120 s. Environment:
+
+| Variable | Value |
+|---|---|
+| `PDF_BUCKET` | the bucket above |
+| `OIDC_AUDIENCE` | the worker's own base URL (what Cloud Tasks puts in the token) |
+| `OIDC_INVOKER_EMAILS` | `pdf-invoker@PROJECT.iam.gserviceaccount.com` |
+| `CHROME_PATH`, `CHROMIUM_NO_SANDBOX` | set by the image (`/usr/bin/chromium`, `1`); never set the sandbox flag outside the container |
+| `RENDER_TIMEOUT_MS` | optional, default 30000 |
+
+Server environment for `create_report` and `GET /r/:token/pdf`: `GCP_PROJECT`, `TASKS_LOCATION` (default `us-central1`), `PDF_TASKS_QUEUE=pdf-render`, `PDF_WORKER_URL`, `PDF_WORKER_INVOKER_SA`, and the same bucket name for the signed-URL provider. With none of the queue variables set the server skips PDFs (`pdfUrl` is null).
+
+Local development: `INTERNAL_AUTH_TOKEN` (16+ characters) replaces the OIDC pair, and `pnpm --filter @evalprop/pdf-worker render:sample` renders a fixture to `apps/pdf-worker/out/sample.pdf` without any of the above. Needs Chrome or Chromium (`CHROME_PATH` if it is not in a standard location).
+
 ## Never
 
 - Commit keys or `.env` files.
