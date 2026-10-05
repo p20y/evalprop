@@ -25,11 +25,16 @@ export interface McpHandlerDeps {
    */
   authorizationServers?: readonly string[];
   /**
-   * Report link for an analysis. Default: `${baseUrl}/r/${analysisId}`.
-   * TODO(S08/S14): a share link is a tokenised URL minted by `create_report`; wire that here (or have the
-   * card link to an owner-authenticated route). The default is a placeholder, not a token scheme.
+   * Placeholder report link used inside the pipeline (it builds the card before any share token exists).
+   * Default: `${baseUrl}/r/${analysisId}`, which is NOT a share link. See `createReportLink` for the real one.
    */
   reportUrl?: (analysisId: string) => string;
+  /**
+   * Mints a real share link for an analysis the caller owns (a tokenised `/r/:token` URL from `createReport`).
+   * After a successful `analyze_property` or `what_if`, the card's `reportUrl` is replaced by this link. If it
+   * throws, the error is logged and the placeholder link stays (the analysis itself is never lost).
+   */
+  createReportLink?: (uid: string, analysisId: string) => Promise<string>;
   /** The tool registry. Default: `analyze_property` and `what_if`. */
   tools?: readonly ToolDefinition[];
   /** Structured log sink. Default: one JSON line on stderr. Never receives tokens or request bodies. */
@@ -113,7 +118,14 @@ export function buildMcpHandler(deps: McpHandlerDeps): McpHandler {
       return jsonRpcHttpError(405, -32000, "Method not allowed.", { allow: "POST" });
     }
 
-    const server = createMcpServer(tools, { uid: identity.uid, pipeline, log });
+    const uid = identity.uid;
+    const createLink = deps.createReportLink;
+    const server = createMcpServer(tools, {
+      uid,
+      pipeline,
+      log,
+      ...(createLink !== undefined ? { createReportLink: (analysisId: string) => createLink(uid, analysisId) } : {}),
+    });
     const transport = new WebStandardStreamableHTTPServerTransport({ enableJsonResponse: true });
     try {
       await server.connect(transport);
