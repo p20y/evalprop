@@ -34,25 +34,34 @@ export interface RentEstimate {
   high?: number;
 }
 
+/**
+ * Optional per-call options. The gateway aborts `signal` when a call times out so an adapter can
+ * cancel its HTTP request (`fetch(url, { signal })`). Adapters that ignore it still work: the gateway
+ * stops waiting regardless.
+ */
+export interface CallOptions {
+  signal?: AbortSignal;
+}
+
 export interface PropertyProvider {
   /** Address string → normalized facts and coordinates, or AMBIGUOUS with candidates, or NOT_FOUND. */
-  resolve(address: string): Promise<ProviderResult<PropertyFacts>>;
+  resolve(address: string, options?: CallOptions): Promise<ProviderResult<PropertyFacts>>;
 }
 
 export interface RentProvider {
   /** Rental listings within `radiusMiles` of the subject, as normalized candidates (filtering is done by comp selection). */
-  rentCandidates(subject: SubjectProfile, radiusMiles: number): Promise<ProviderResult<RentListing[]>>;
+  rentCandidates(subject: SubjectProfile, radiusMiles: number, options?: CallOptions): Promise<ProviderResult<RentListing[]>>;
   /** Provider's automated estimate; the fallback when comps are insufficient. */
-  rentEstimate(subject: SubjectProfile): Promise<ProviderResult<RentEstimate>>;
+  rentEstimate(subject: SubjectProfile, options?: CallOptions): Promise<ProviderResult<RentEstimate>>;
 }
 
 export interface SalesProvider {
-  saleCandidates(subject: SubjectProfile, radiusMiles: number): Promise<ProviderResult<SaleListing[]>>;
+  saleCandidates(subject: SubjectProfile, radiusMiles: number, options?: CallOptions): Promise<ProviderResult<SaleListing[]>>;
 }
 
 export interface SchoolsProvider {
-  assignedSchools(location: LatLng): Promise<ProviderResult<School[]>>;
-  nearbySchools(location: LatLng, radiusMiles: number): Promise<ProviderResult<School[]>>;
+  assignedSchools(location: LatLng, options?: CallOptions): Promise<ProviderResult<School[]>>;
+  nearbySchools(location: LatLng, radiusMiles: number, options?: CallOptions): Promise<ProviderResult<School[]>>;
 }
 
 export type { Provenance };

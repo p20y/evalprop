@@ -1,0 +1,30 @@
+{
+  "id": "ambiguous-main-st",
+  "description": "An address string that matches several properties; the provider returns AMBIGUOUS with candidates.",
+  "recordedAt": "2026-09-19T12:00:00.000Z",
+  "confidence": "medium",
+  "addresses": [
+    "500 Main St",
+    "500 main street"
+  ],
+  "property": {
+    "failure": {
+      "code": "AMBIGUOUS",
+      "message": "Multiple properties match '500 Main St'",
+      "candidates": [
+        "500 Main St, Alphaville, OH 44001",
+        "500 Main St, Betaburg, KY 40001",
+        "500 Main St, Gammaton, PA 15001"
+      ]
+    }
+  },
+  "rent": {
+    "candidates": [],
+    "estimate": null
+  },
+  "sales": [],
+  "schools": {
+    "assigned": [],
+    "nearby": []
+  }
+}
