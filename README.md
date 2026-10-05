@@ -8,7 +8,7 @@ The assistant explains and converses. **All numbers come from our engine**, neve
 
 ## Status
 
-Design complete; build starting. The calculation engine exists and is tested (`src/calc`, to be moved into `packages/engine` by S01). The live board is in [docs/STORIES.md](docs/STORIES.md).
+Design complete; building. Done: the monorepo skeleton and shared contracts (S00). The calculation engine is tested but still lives in `src/calc` until S01 moves it into `packages/engine`. The live board is in [docs/STORIES.md](docs/STORIES.md).
 
 ## How it works
 

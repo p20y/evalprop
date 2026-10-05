@@ -1,4 +1,12 @@
 node_modules/
 dist/
+out/
 .env
+.env.*
+!.env.example
 .DS_Store
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+*.local
+reference/

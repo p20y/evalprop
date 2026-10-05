@@ -1,0 +1,13 @@
+{
+  "name": "@evalprop/server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "scripts": {
+    "test": "node --test \"src/**/*.test.ts\"",
+    "typecheck": "tsc --noEmit -p .",
+    "build": "tsc --noEmit -p ."
+  },
+  "dependencies": { "@evalprop/shared": "workspace:*", "@evalprop/engine": "workspace:*", "hono": "^4.13.13", "@hono/node-server": "^2.1.3" }
+}

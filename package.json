@@ -3,9 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "US rental property evaluation engine and connector",
+  "description": "US rental property evaluation connector",
+  "packageManager": "pnpm@12.8.1",
+  "engines": { "node": ">=22.18" },
   "scripts": {
-    "test": "node --test test/*.test.ts"
+    "dev": "bash scripts/dev.sh",
+    "test": "pnpm -r --if-present test && node --test test/*.test.ts",
+    "test:emulator": "bash scripts/emulator-test.sh",
+    "typecheck": "pnpm -r --if-present typecheck && tsc --noEmit -p tsconfig.json",
+    "lint": "eslint .",
+    "build": "pnpm -r --if-present build"
   },
-  "engines": { "node": ">=22.18" }
+  "devDependencies": {
+    "@firebase/rules-unit-testing": "^5.0.2",
+    "@types/node": "^22.10.0",
+    "eslint": "^10.12.0",
+    "firebase": "^12.0.0",
+    "firebase-tools": "^15.32.1",
+    "typescript": "~6.0.0",
+    "typescript-eslint": "^8.71.0"
+  }
 }
