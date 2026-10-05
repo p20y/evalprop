@@ -4,9 +4,10 @@ packages:
   - "evals"
 
 # Dependency install scripts (pnpm blocks them by default). @firebase/util (optional auto-init
-# config), protobufjs (version check), and re2 (optional native regex engine pulled in by
+# config), esbuild (its platform binary comes from an optional dependency; the postinstall only verifies it), protobufjs (version check), and re2 (optional native regex engine pulled in by
 # firebase-tools on Linux) are skipped; nothing here needs a build step.
 allowBuilds:
   '@firebase/util': false
+  esbuild: false
   protobufjs: false
   re2: false
