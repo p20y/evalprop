@@ -3,7 +3,9 @@ packages:
   - "apps/*"
 
 # Dependency install scripts (pnpm blocks them by default). @firebase/util (optional auto-init
-# config) and protobufjs (version check) are skipped; nothing here needs a build step.
+# config), protobufjs (version check), and re2 (optional native regex engine pulled in by
+# firebase-tools on Linux) are skipped; nothing here needs a build step.
 allowBuilds:
   '@firebase/util': false
   protobufjs: false
+  re2: false
