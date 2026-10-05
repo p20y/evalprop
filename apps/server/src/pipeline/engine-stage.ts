@@ -53,9 +53,19 @@ export function runEngine(args: {
     throw new Error("runEngine requires an offer price and a monthly rent");
   }
 
+  // Reassessing states: a tax figure from the listing or the property record is the SELLER's bill, which the
+  // new owner's bill will not follow. Unless the user supplied their own figure, the engine's estimate on the
+  // purchase price is used instead (labelled "assumed"), and the seller's figure is kept in the note.
+  const reassessed = defaultPropertyTax(price.value, state);
+  const sellerTax =
+    reassessed.reassessed && chosen.propertyTaxAnnual !== undefined && chosen.propertyTaxAnnual.source !== "provided"
+      ? chosen.propertyTaxAnnual
+      : undefined;
+
   const overrides: Record<string, number> = {};
   for (const field of ASSUMPTION_FIELDS) {
     if (field === "offerPrice" || field === "monthlyRent") continue;
+    if (field === "propertyTaxAnnual" && sellerTax !== undefined) continue;
     const c = chosen[field];
     if (c !== undefined) overrides[field] = c.value;
   }
@@ -94,19 +104,17 @@ export function runEngine(args: {
   push("offerPrice", price.value, price);
   push("monthlyRent", rent.value, rent);
 
-  // Reassessing states: a tax figure from the listing or the property record is the SELLER's bill, which
-  // the new owner's bill will not follow. Precedence still applies (it is the best figure we were given),
-  // but the assumption says so and quotes the engine's reassessed estimate for comparison.
-  const reassessed = defaultPropertyTax(price.value, state);
   for (const rec of evaluation.assumptions) {
     const field = rec.field as AssumptionField;
-    const c = chosen[field];
-    let engineNote = c === undefined ? rec.note : undefined;
-    if (field === "propertyTaxAnnual" && c !== undefined && c.source !== "provided" && reassessed.reassessed) {
-      engineNote = `This state reassesses property tax to the purchase price on sale, so this figure (the seller's current bill) may understate what you will pay; the engine's estimate on the purchase price would be ${usd(reassessed.annual)} a year. Supply your own figure to override.`;
-      notes.push(warn("assumptions", `Property tax comes from the ${c.source === "listing" ? "listing" : "property record"} but this state reassesses on sale: ${usd(reassessed.annual)} a year is the engine's estimate on the purchase price.`));
+    if (field === "propertyTaxAnnual" && sellerTax !== undefined) {
+      const origin = sellerTax.source === "listing" ? "listing" : "property record";
+      const note = `${rec.note ?? "Estimated on the purchase price."} The ${origin} shows ${usd(sellerTax.value)} a year, which is the seller's current bill: this state reassesses on sale, so the estimate on the purchase price is used instead. Supply your own figure to override.`;
+      notes.push(warn("assumptions", `Property tax is estimated at ${usd(rec.value)} a year on the purchase price because this state reassesses on sale; the ${origin} figure of ${usd(sellerTax.value)} is the seller's bill.`));
+      push(field, rec.value, undefined, note);
+      continue;
     }
-    push(field, rec.value, c, engineNote);
+    const c = chosen[field];
+    push(field, rec.value, c, c === undefined ? rec.note : undefined);
   }
 
   return { ok: true, evaluation, assumptions: resolved, maxOfferPrice, breakEvenRent: breakEven, notes };

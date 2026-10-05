@@ -361,14 +361,16 @@ describe("state tax reassessment", () => {
     assert.ok(Math.abs(atMax.yearOne.cashOnCashPct - 8) < 0.01);
   });
 
-  test("a tax from the listing or record wins by precedence, with a warning that the state reassesses", async () => {
+  test("in a reassessing state a tax from the listing or record is the seller's bill: the reassessed estimate is used and the seller's figure is quoted", async () => {
     const h = harness({ scenarios: [caWithTax] });
     const r = await h.analyze({ address: caWithTax.addresses[0] as string });
     assertOk(r);
+    const price = r.analysis.assumptions.find((a) => a.field === "offerPrice")?.value as number;
     const tax = r.analysis.assumptions.find((a) => a.field === "propertyTaxAnnual");
-    assert.equal(tax?.source, "lookup");
-    assert.equal(tax?.value, 5480);
+    assert.equal(tax?.source, "assumed");
+    assert.equal(tax?.value, Math.round(price * 0.012 * 100) / 100); // 1.2% of the purchase price
     assert.match(tax?.note ?? "", /seller's current bill/);
+    assert.match(tax?.note ?? "", /\$5,480/);
     assert.ok(r.analysis.dataNotes.some((n) => n.severity === "warning" && /reassesses on sale/.test(n.message)));
     assert.ok(r.card.dataNotes.some((m) => /reassesses on sale/.test(m)));
   });
