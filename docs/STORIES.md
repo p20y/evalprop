@@ -19,7 +19,7 @@ The build backlog for evalprop. Each story is a self-contained brief an agent ca
 | S01 | Adopt and harden the calculation engine | Launch | A: engine | S00 | done ([#2](https://github.com/p20y/evalprop/pull/2), [#4](https://github.com/p20y/evalprop/pull/4)) |
 | S02 | Comp selection engine (search ladder, similarity, confidence) | Launch | A: engine | S00 | done ([#3](https://github.com/p20y/evalprop/pull/3)) |
 | S03 | Data gateway: provider interfaces, cache, fixtures, usage ledger | Launch | B: data | S00 | in review ([#5](https://github.com/p20y/evalprop/pull/5)) |
-| S04 | Property, rent, and sale data provider (spike, then adapter) | Launch | B: data, human review | S03 | todo |
+| S04 | Property, rent, and sale data provider (spike, then adapter) | Launch | B: data, human review | S03 | in progress (part 1: comparison in review [#6](https://github.com/p20y/evalprop/pull/6), awaiting product owner choice) |
 | S05 | Schools adapter | Launch | B: data | S03 | todo |
 | S06 | `runAnalysis` pipeline + persistence | Launch | C: connector | S01, S02, S03 | todo |
 | S07 | MCP server: `analyze_property`, `what_if` | Launch | C: connector | S06 | todo |
@@ -216,7 +216,7 @@ After S00 is accepted, tracks **A (engine, comps), B (data)** run in parallel. S
 
 **Out of scope:** schools (S05), crime/insurance/flood (1.1), multiple providers at once.
 
-**Outcome:** _(filled in when merged)_
+**Outcome:** _Part 1 in review ([#6](https://github.com/p20y/evalprop/pull/6)); part 2 (adapter) not started, waiting for the product owner's choice._ Part 1 delivered `docs/provider-comparison.md` (research only, public pages, no key, no account, no paid or authenticated call) and a clearly marked **proposed** licence section in `docs/SETUP.md`. Candidates examined: RentCast, ATTOM (and Estated, now being folded into it), HouseCanary, Rentometer, Zillow Group/Bridge, Realtor.com, Cotality, BatchData, plus GreatSchools, SchoolDigger, ATTOM schools and NCES EDGE for schools. Recommendation: **RentCast** for property, rent and sales (only verified radius rental-listing search with bed/bath/sqft filters; published prices; licence permits display, storage and redistribution without attribution; about $0.23 per cold analysis at 6 calls on the $199 Growth plan, about $229 per 1,000 analyses). Rents are **asking only**. Schools have no clean fit: self-serve GreatSchools forbids caching and sharing and lacks assigned schools and 1-10 ratings; proposed path is free NCES locations at launch plus SchoolDigger Pro ($89/mo, 24 h cache cap) if it confirms terms in writing. Deviations from the brief: (1) the recorded sample responses for three real addresses are **not** delivered because there is no key; the comparison doc has a trial-key checklist (section 5) to produce them on RentCast's free tier. (2) Licence terms were read through a page-summarising fetch tool and some pages were unreachable (SchoolDigger docs, Zillow Public Data Terms, Realtor.com); each claim is tagged verified, secondary, or unconfirmed. Still needed from the product owner: provider and schools choice, the three real test addresses, who creates the trial key, and written licence confirmation (AI-assistant display, snapshot retention).
 
 ---
 
@@ -554,5 +554,8 @@ After S00 is accepted, tracks **A (engine, comps), B (data)** run in parallel. S
 | F12 | The gateway caches empty successful results (for example no rent comps) like any success. A transient empty from a provider would be pinned for 24 h to 90 d; decide in S04 whether empties get a shorter TTL | S03 | open |
 | F13 | Expired `cache/{key}` documents are never deleted. Attach a Firestore TTL policy to `cache.expiresAt` (stored as a Timestamp) when infra is set up | S03 (for S15) | open |
 | F14 | In-flight de-duplication is per process: concurrent identical requests that land on different Cloud Run instances each call the provider once. No circuit breaker or provider-side rate limiting yet; revisit with real provider quotas in S04 | S03 | open |
+| F15 | The gateway's default 90-day TTL for `schools.assigned` and `schools.nearby` (`packages/data/src/cache.ts`) conflicts with likely school-data licences: SchoolDigger and ATTOM trial terms cap caching at 24 hours, and GreatSchools self-serve forbids caching. TTLs must be capped per provider (a licence-derived maximum) when S05 picks a source. See `docs/provider-comparison.md` §4.2 | S04 | open |
+| F16 | S04 part 1 could not record sample responses for the three spike addresses (no key). Part 2 must produce them on a trial key (checklist in `docs/provider-comparison.md` §5) before adapter fixtures are committed; confirm first that committing provider responses to the repository is allowed by the licence | S04 | open |
+| F17 | Provider licence confirmations are outstanding: display inside third-party AI assistants, retention of report snapshots behind share links, free-tier terms, and whether the NCES "statistical purposes only" agreement applies to EDGE data. Get written answers and update the proposed section in `docs/SETUP.md` | S04 | open |
 
-_Next free follow-up number: F15._
+_Next free follow-up number: F18._
