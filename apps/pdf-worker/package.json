@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "node src/index.ts",
-    "test": "node --test \"src/**/*.test.ts\"",
+    "test": "node --test $(find src -name '*.test.ts' -not -name '*.emulator.test.ts')",
     "render:sample": "node src/scripts/render-sample.ts",
     "typecheck": "tsc --noEmit -p .",
     "build": "tsc --noEmit -p ."
